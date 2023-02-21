@@ -1,0 +1,16 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.main {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.sidebar {
+    background-color: red;
+    width: 5rem;
+    height: 100vh;
+}

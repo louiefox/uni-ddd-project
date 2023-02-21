@@ -1,0 +1,23 @@
+.top-row[b-pbg9u6mh0q] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+}
+
+.oi[b-pbg9u6mh0q] {
+    font-size: 2rem;
+}
+
+.nav-column[b-pbg9u6mh0q] {
+
+}
+
+.nav-item[b-pbg9u6mh0q] {
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    width: 100%;
+}

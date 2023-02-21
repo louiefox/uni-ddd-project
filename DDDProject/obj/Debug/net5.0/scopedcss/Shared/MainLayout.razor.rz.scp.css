@@ -1,0 +1,16 @@
+.page[b-7h2xk1swd3] {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.main[b-7h2xk1swd3] {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.sidebar[b-7h2xk1swd3] {
+    background-color: red;
+    width: 5rem;
+    height: 100vh;
+}
