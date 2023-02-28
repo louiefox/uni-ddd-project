@@ -13,70 +13,70 @@ namespace DDDProject.Shared
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Components;
 #nullable restore
-#line 1 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 1 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using System.Net.Http;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 2 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 3 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 4 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 4 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Components.Forms;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 5 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Components.Routing;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 6 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 6 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 7 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 7 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 8 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 8 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using Microsoft.JSInterop;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 9 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 9 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using DDDProject;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 10 "C:\Users\668064\source\repos\DDDProject\DDDProject\_Imports.razor"
+#line 10 "\\adir.hull.ac.uk\home\668\668064\University\Modules\Design, Develop, Deploy\uni-ddd-project\DDDProject\_Imports.razor"
 using DDDProject.Shared;
 
 #line default
