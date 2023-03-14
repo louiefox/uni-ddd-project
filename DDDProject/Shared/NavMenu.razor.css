@@ -1,7 +1,7 @@
 .top-row {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     aspect-ratio: 1;
     background-color: rgba(0,0,0,0.4);
     color: white;
