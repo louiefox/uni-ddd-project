@@ -13,7 +13,10 @@
 
 .nav-column {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 70%;
+    justify-content: flex-end;
+
 }
 
 .nav-item {
