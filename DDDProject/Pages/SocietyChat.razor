@@ -2,10 +2,17 @@
 @inject NavigationManager navigationManager
 @using Microsoft.AspNetCore.SignalR.Client;
 
-<h1>Blazor SignalR Chat Sample</h1>
-<hr />
+<div class="container">
+    <div class="left-side">
 
-@if (!_isChatting)
+    </div>
+
+    <div class="chat-section">
+
+    </div>
+</div>
+
+@* @if (!_isChatting)
 {
     <p>
         Enter your name to start chatting:
@@ -49,7 +56,7 @@ else
         <textarea class="input-lg" placeholder="enter your comment" @bind="@_newMessage"></textarea>
         <button class="btn btn-default" @onclick="@(() => SendAsync(_newMessage))">Send</button>
     </div>
-}
+}*@
 
 @code {
     // flag to indicate chat status

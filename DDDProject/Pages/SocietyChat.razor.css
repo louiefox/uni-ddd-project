@@ -1,6 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: grey;
+    width: 100%;
+    height: 100%;
+}
+
+.left-side {
+    background-color: red;
+    flex-grow: 1;
+}
+
+.chat-section {
+    background-color: blue;
+    flex-grow: 2;
+}
+
 /* improved for chat text box */
 textarea {
-    border: 1px dashed #888;
+    border: 2px dashed #888;
     border-radius: 5px;
     width: 80%;
     overflow: auto;
