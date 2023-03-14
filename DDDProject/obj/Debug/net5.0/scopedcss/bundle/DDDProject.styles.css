@@ -1,0 +1,116 @@
+/* _content/DDDProject/Pages/SocietyChat.razor.rz.scp.css */
+/* improved for chat text box */
+textarea[b-dzs2p6o91n] {
+    border: 1px dashed #888;
+    border-radius: 5px;
+    width: 80%;
+    overflow: auto;
+    background: #f7f7f7
+}
+
+/* improved for speech bubbles */
+.received[b-dzs2p6o91n], .sent[b-dzs2p6o91n] {
+    position: relative;
+    font-family: arial;
+    font-size: 1.1em;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.received[b-dzs2p6o91n]:after, .sent[b-dzs2p6o91n]:after {
+    content: '';
+    border: 20px solid transparent;
+    position: absolute;
+    margin-top: -30px;
+}
+
+.sent[b-dzs2p6o91n] {
+    background: #03a9f4;
+    color: #fff;
+    margin-left: 10%;
+    top: 50%;
+    text-align: right;
+}
+
+.received[b-dzs2p6o91n] {
+    background: #4CAF50;
+    color: #fff;
+    margin-left: 10px;
+    margin-right: 10%;
+}
+
+.sent[b-dzs2p6o91n]:after {
+    border-left-color: #03a9f4;
+    border-right: 0;
+    right: -20px;
+}
+
+.received[b-dzs2p6o91n]:after {
+    border-right-color: #4CAF50;
+    border-left: 0;
+    left: -20px;
+}
+
+/* div within bubble for name */
+.user[b-dzs2p6o91n] {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #000;
+}
+
+.msg[b-dzs2p6o91n] {
+    /*display: inline;*/
+}
+/* _content/DDDProject/Shared/MainLayout.razor.rz.scp.css */
+.page[b-7h2xk1swd3] {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+}
+
+.main[b-7h2xk1swd3] {
+    flex: 1;
+    margin-left: 2rem;
+}
+
+.sidebar[b-7h2xk1swd3] {
+    background-color: red;
+    width: 5rem;
+    height: 100vh;
+}
+/* _content/DDDProject/Shared/NavMenu.razor.rz.scp.css */
+.top-row[b-pbg9u6mh0q] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1;
+    background-color: rgba(0,0,0,0.4);
+    color: white;
+}
+
+.oi[b-pbg9u6mh0q] {
+    font-size: 2rem;
+}
+
+.nav-column[b-pbg9u6mh0q] {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item[b-pbg9u6mh0q] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    height: 4rem;
+    color: white;
+}
+
+.nav-item:hover[b-pbg9u6mh0q] {
+    background-color: rgba(255,255,255,0.5);
+}
+
+.oi[b-pbg9u6mh0q] {
+    color: white;
+}

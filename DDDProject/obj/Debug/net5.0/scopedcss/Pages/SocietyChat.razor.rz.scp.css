@@ -1,0 +1,63 @@
+/* improved for chat text box */
+textarea[b-dzs2p6o91n] {
+    border: 1px dashed #888;
+    border-radius: 5px;
+    width: 80%;
+    overflow: auto;
+    background: #f7f7f7
+}
+
+/* improved for speech bubbles */
+.received[b-dzs2p6o91n], .sent[b-dzs2p6o91n] {
+    position: relative;
+    font-family: arial;
+    font-size: 1.1em;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.received[b-dzs2p6o91n]:after, .sent[b-dzs2p6o91n]:after {
+    content: '';
+    border: 20px solid transparent;
+    position: absolute;
+    margin-top: -30px;
+}
+
+.sent[b-dzs2p6o91n] {
+    background: #03a9f4;
+    color: #fff;
+    margin-left: 10%;
+    top: 50%;
+    text-align: right;
+}
+
+.received[b-dzs2p6o91n] {
+    background: #4CAF50;
+    color: #fff;
+    margin-left: 10px;
+    margin-right: 10%;
+}
+
+.sent[b-dzs2p6o91n]:after {
+    border-left-color: #03a9f4;
+    border-right: 0;
+    right: -20px;
+}
+
+.received[b-dzs2p6o91n]:after {
+    border-right-color: #4CAF50;
+    border-left: 0;
+    left: -20px;
+}
+
+/* div within bubble for name */
+.user[b-dzs2p6o91n] {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #000;
+}
+
+.msg[b-dzs2p6o91n] {
+    /*display: inline;*/
+}
