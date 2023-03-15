@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: left;
     aspect-ratio: 1;
-    background-color: #4CAF50;
+    background-color: #FF9F43;
     color: black;
 }
 
@@ -25,7 +25,7 @@
     flex-direction: row;
     width: 100%;
     justify-content: flex-end;
-    background-color: #4CAF50;
+    background-color: #FF9F43;
 }
 
 .nav-item {
@@ -43,7 +43,7 @@
 
 
 .button {
-    background-color: #4CAF50;
+    background-color: #FF9F43;
     border: none;
     color: rgb(0, 0, 0);
     padding: 18px 70px;
