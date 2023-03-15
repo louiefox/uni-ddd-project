@@ -2,7 +2,7 @@
 
 html, body {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin:0;
+    margin: 0;
 }
 
 .content {
@@ -10,19 +10,19 @@ html, body {
 }
 
 .valid.modified:not([type=checkbox]) {
-    outline: 1px solid #26b050;
+    outline: 1px solid #AECFC1;
 }
 
 .invalid {
-    outline: 1px solid red;
+    outline: 1px solid #FF9F43;
 }
 
 .validation-message {
-    color: red;
+    color: #FF9F43;
 }
 
 #blazor-error-ui {
-    background: lightyellow;
+    background: #FBD1A2;
     bottom: 0;
     box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
     display: none;

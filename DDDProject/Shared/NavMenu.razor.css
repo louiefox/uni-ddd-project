@@ -4,7 +4,7 @@
     align-items: left;
     aspect-ratio: 1;
     background-color: #FF9F43;
-    color: black;
+    color: #002500;
 }
 
 .logo {
@@ -34,7 +34,7 @@
     align-items: center;
     list-style-type: none;
     height: 4rem;
-    color: black;
+    color: #002500;
 }
 
 .nav-item:hover {
@@ -45,7 +45,7 @@
 .button {
     background-color: #FF9F43;
     border: none;
-    color: rgb(0, 0, 0);
+    color: #002500;
     padding: 18px 70px;
     text-align: center;
     text-decoration: none;
