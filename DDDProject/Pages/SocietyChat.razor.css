@@ -14,6 +14,7 @@
 .chat-section {
     background-color: blue;
     flex-grow: 2;
+    padding: 5rem;
 }
 
 /* improved for chat text box */
