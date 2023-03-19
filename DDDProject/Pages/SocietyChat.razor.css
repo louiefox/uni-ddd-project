@@ -18,12 +18,13 @@
     flex-grow: 1;
     background-color: #FF9F43;
     padding: 3rem;
-    padding-top: 1rem;
 }
 
 h1 {
     color: #002500;
     font-size: 2.5rem;
+    margin: 0;
+    margin-bottom: 2rem;
 }
 
 h2 {
@@ -31,12 +32,15 @@ h2 {
     opacity: 0.75;
     font-size: 1.8rem;
     font-weight: 500;
+    margin: 0;
+    margin-top: 1rem;
 }
 
 h3 {
     color: #002500;
     font-size: 1rem;
     font-weight: 500;
+    margin: 0;
 }
 
 .return-button {
