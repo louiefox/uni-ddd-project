@@ -54,7 +54,7 @@ namespace DDDProject
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
-                endpoints.MapHub<SocietyChatHub>("/chat");
+                endpoints.MapHub<SocietyChatHub>("/chathub");
             });
         }
     }

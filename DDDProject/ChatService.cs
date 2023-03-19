@@ -7,7 +7,7 @@ namespace DDDProject
 {
     public class SocietyChatHub : Hub
     {
-        public const string HubUrl = "/chat";
+        public const string HubUrl = "/chathub";
 
         public async Task Broadcast(string username, string message)
         {
