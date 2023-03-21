@@ -2,28 +2,40 @@
     display: flex;
     flex-direction: column;
     width: 65%;
-    margin: 3rem;
+    margin-left: 3rem;
+    margin:2rem
 }
 .anouncements{
     background-color: #AECFC1;
-    padding: 3rem;
+    padding-left:3rem;
+    margin:1rem;
     flex-grow: 1;
 }
 
 .cards{
     background-color: #FF9F43;
     padding: 3rem;
+    margin: 1rem;
     display:flex;
+    position: relative;
 }
 
 .card{
     flex:1;
 }
 
-.img{
-
+.add-button{
+    background: transparent;
+    border: none;
+    font-size:0;
+    position:absolute;
+    top:11rem;
+    padding-left:11rem;
 }
-
-.text{
-
+.calendar{
+    display:flex;
+    flex-direction: column;
+    width:35%;
+    margin:3rem;
+    background-color: #AECFC1;
 }
