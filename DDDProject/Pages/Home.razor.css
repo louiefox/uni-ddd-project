@@ -1,0 +1,29 @@
+﻿.left-side{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin: 3rem;
+}
+.anouncements{
+    background-color: #AECFC1;
+    padding: 3rem;
+    flex-grow: 1;
+}
+
+.cards{
+    background-color: #FF9F43;
+    padding: 3rem;
+    display:flex;
+}
+
+.card{
+    flex:1;
+}
+
+.img{
+
+}
+
+.text{
+
+}
