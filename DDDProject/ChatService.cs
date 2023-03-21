@@ -17,12 +17,21 @@ namespace DDDProject
         public override Task OnConnectedAsync()
         {
             Console.WriteLine($"{Context.ConnectionId} connected");
+
+            string username = Context.ConnectionId;
+            Clients.Client(Context.ConnectionId).SendAsync("OnClientConnected", username);
+            Clients.All.SendAsync("UserConnected", username);
+            
             return base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception e)
         {
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
+
+            string username = Context.ConnectionId;
+            await Clients.All.SendAsync("UserDisconnected", username);
+
             await base.OnDisconnectedAsync(e);
         }
     }
