@@ -23,23 +23,27 @@
             <span>You are connected as <b>@_username</b></span>
             <button class="btn btn-sm btn-warning ml-md-auto" @onclick="@DisconnectAsync">Disconnect</button>
         </div>
-        <div id="scrollbox">
-            @foreach (var item in _messages)
-            {
-                @if (item.IsNotice)
+        <div class="scrollcontainer">
+            <div id="scrollbox" class="scrollbox">
+                @foreach (var item in _messages)
                 {
-                    <div class="alert alert-info">@item.Body</div>
+                    @if (item.IsNotice)
+                    {
+                        <div class="alert alert-info">@item.Body</div>
+                    }
+                    else
+                    {
+                        <div class="@item.CSS">
+                            <div class="user">@item.Username</div>
+                            <div class="msg">@item.Body</div>
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="@item.CSS">
-                        <div class="user">@item.Username</div>
-                        <div class="msg">@item.Body</div>
-                    </div>
-                }
-            }
-            <hr />
-            <textarea class="input-lg" placeholder="enter your comment" @bind="@_newMessage"></textarea>
+                <hr />
+            </div>
+        </div>
+        <div class="message-entry">
+            <textarea class="input-lg" placeholder="Type your message here" @bind="@_newMessage"></textarea>
             <button class="btn btn-default" @onclick="@(() => SendAsync(_newMessage))">Send</button>
         </div>
     </div>
