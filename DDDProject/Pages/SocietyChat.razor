@@ -47,7 +47,7 @@
 
 @code {
     // flag to indicate chat status
-    private bool _isChatting = true;
+    private bool _isChatting = false;
 
     // name of the user who will be chatting
     private string _username = "Placeholder";
@@ -64,7 +64,7 @@
     private string _hubUrl;
     private HubConnection _hubConnection;
 
-    public async Task Chat()
+    protected override async Task OnInitializedAsync()
     {
         // check username is valid
         if (string.IsNullOrWhiteSpace(_username))
@@ -92,10 +92,11 @@
                 .Build();
 
             _hubConnection.On<string, string>("Broadcast", BroadcastMessage);
+            _hubConnection.On<string>("OnClientConnected", OnClientConnected);
+            _hubConnection.On<string>("UserConnected", UserConnected);
+            _hubConnection.On<string>("UserDisconnected", UserDisconnected);
 
             await _hubConnection.StartAsync();
-
-            await SendAsync($"[Notice] {_username} joined chat room.");
         }
         catch (Exception e)
         {
@@ -104,18 +105,36 @@
         }
     }
 
-    protected override async Task OnInitializedAsync()
+    private void OnClientConnected(string username)
     {
-        await Chat();
+        _username = username;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UserConnected(string username)
+    {
+        Message msg = new Message("", $"[Notice] {username} joined chat room.");
+        msg.IsNotice = true;
+        _messages.Add(msg);
+
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void UserDisconnected(string username)
+    {
+        Message msg = new Message("", $"[Notice] {username} left chat room.");
+        msg.IsNotice = true;
+        _messages.Add(msg);
+
+        InvokeAsync(StateHasChanged);
     }
 
     private void BroadcastMessage(string name, string message)
     {
-        bool isMine = name.Equals(_username, StringComparison.OrdinalIgnoreCase);
+        Message msg = new Message(name, message);
+        msg.Mine = name.Equals(_username, StringComparison.OrdinalIgnoreCase);
+        _messages.Add(msg);
 
-        _messages.Add(new Message(name, message, isMine));
-
-        // Inform blazor the UI needs updating
         InvokeAsync(StateHasChanged);
     }
 
@@ -123,8 +142,6 @@
     {
         if (_isChatting)
         {
-            await SendAsync($"[Notice] {_username} left chat room.");
-
             await _hubConnection.StopAsync();
             await _hubConnection.DisposeAsync();
 
@@ -145,18 +162,16 @@
 
     private class Message
     {
-        public Message(string username, string body, bool mine)
+        public Message(string username, string body)
         {
             Username = username;
             Body = body;
-            Mine = mine;
         }
 
         public string Username { get; set; }
         public string Body { get; set; }
         public bool Mine { get; set; }
-
-        public bool IsNotice => Body.StartsWith("[Notice]");
+        public bool IsNotice { get; set; }
 
         public string CSS => Mine ? "sent" : "received";
     }
