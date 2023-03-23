@@ -1,3 +1,97 @@
-.example {
-    color: red;
+form{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
+
+.login_form_email{
+    padding: 10px 0;
+    margin: 0px 70px;
+}
+
+.login_form_password{
+    margin: 0px 70px;
+}
+
+.login_form_buttom{
+    
+    margin-top: 40px;
+    margin-left: 70px;
+    margin-bottom: 20px;
+    
+
+}
+
+.login_image{
+    position: absolute;
+    margin-top: 80px;
+    margin-left: 700px;
+}
+
+label {   
+      
+    width: 219px;
+    height: 73px;
+    left: 97px;
+    top: 100px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 150%;
+}
+
+input{
+
+    width: 430px;
+    height: 80px;
+    left: 97px;
+    top: 180px;
+
+    font-size: 200%;
+
+    background-color: rgba(51, 103, 59, 0.25);
+    border-radius: 5px;
+}
+
+.btn_signin{
+    width: 430px;
+    height: 70px;  
+
+    text-align: center;
+    display: block;
+    text-decoration: none;
+
+    font-size: 40px;
+    font-weight: 500;
+    color: aliceblue;
+
+    background-color: rgba(255, 146, 22, 0.932);
+    border-radius: 5px;
+
+}
+
+.btn_signup{
+    width: 430px;
+    height: 70px;
+   
+
+    text-align: center;
+    display: block;
+    text-decoration: none;
+
+    font-size: 40px;
+    font-weight: 500;
+    color: aliceblue;
+
+    background-color: rgba(20, 14, 6, 0.932);
+    border-radius: 5px;
+}
+
+h1{
+    margin-left: 200px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
