@@ -20,7 +20,7 @@ namespace DDDProject
 
             string username = Context.ConnectionId;
             Clients.Client(Context.ConnectionId).SendAsync("OnClientConnected", username);
-            Clients.All.SendAsync("UserConnected", username);
+            // Clients.All.SendAsync("UserConnected", username);
             
             return base.OnConnectedAsync();
         }
@@ -30,7 +30,7 @@ namespace DDDProject
             Console.WriteLine($"Disconnected {e?.Message} {Context.ConnectionId}");
 
             string username = Context.ConnectionId;
-            await Clients.All.SendAsync("UserDisconnected", username);
+            // await Clients.All.SendAsync("UserDisconnected", username);
 
             await base.OnDisconnectedAsync(e);
         }

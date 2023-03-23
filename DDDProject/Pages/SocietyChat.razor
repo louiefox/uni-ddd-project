@@ -34,8 +34,16 @@
                     else
                     {
                         <div class="@item.CSS">
-                            <div class="user">@item.Username</div>
-                            <div class="msg">@item.Body</div>
+                            <div class="msg-background" style="background-color: @item.BackgroundColor; padding-left: @(item.Mine ? 1 : 0)rem;">
+                                @if (!item.Mine)
+                                {
+                                    <img class="avatar" src="avatar_default.jpg">
+                                }
+                                <div class="msg-content">
+                                    <div class="user">@item.Username</div>
+                                    <div class="msg">@item.Body</div>
+                                </div>
+                            </div>
                         </div>
                     }
                 }
@@ -113,6 +121,8 @@
     {
         _username = username;
         InvokeAsync(StateHasChanged);
+        // Debug message
+        SendAsync("This is a test message.");
     }
 
     private void UserConnected(string username)
@@ -178,5 +188,6 @@
         public bool IsNotice { get; set; }
 
         public string CSS => Mine ? "sent" : "received";
+        public string BackgroundColor => Mine ? "#33673B50" : "#AECFC1";
     }
 }
