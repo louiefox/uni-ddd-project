@@ -1,0 +1,42 @@
+﻿@page "/user"
+
+<div class="container">
+    @if (!_isLoggedIn)
+    {
+        <div class="form">
+            <div class="login_form_email">
+                <label>Email</label><br/>
+                <input type ="text" name="email">       
+            </div>
+
+            <div class ="login_form_password">
+                <label>Password</label><br/>
+                <input type="password" name="password">
+            </div>
+
+            <div class = "login_form_buttom">
+                <button class="btn_signin" @onclick="LoginButton">Sign in</button>
+                <h1>or</h1>
+                <button class="btn_signup">Sign up</button>
+            </div>
+
+            <div class="login_image">
+                <img src="login_page_art.png" width="844" height="526">
+            </div>
+        </div>
+    }
+    else
+    {
+
+    }
+</div>
+
+@code {
+    private bool _isLoggedIn = false;
+
+    private void LoginButton()
+    {
+        _isLoggedIn = true;
+        InvokeAsync(StateHasChanged);
+    }
+}
