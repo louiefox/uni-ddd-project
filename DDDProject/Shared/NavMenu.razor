@@ -1,31 +1,21 @@
 ﻿<div class="top-row">
-    <img src="css\socks.png" alt="Logo" style="padding:2px">
+    <img src="socks.png" class="logo">
 </div>
 
-<div class="nav-column">
+<div class="nav-row">
     <li class="nav-item">
-        <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-            <button class="button">Home</button>
-        </NavLink>
+        <NavLink class="nav-link" ActiveClass="nav-active" href="" Match="NavLinkMatch.All">home</NavLink>
     </li>
     <li class="nav-item">
-        <NavLink class="nav-link" href="chat">
-            <button class="button">Societies</button>
-        </NavLink>
+        <NavLink class="nav-link" ActiveClass="nav-active" href="chat" Match="NavLinkMatch.All">societies</NavLink>
     </li>
     <li class="nav-item">
-        <NavLink class="nav-link" href="mappage">
-            <button class="button">Map</button>
-        </NavLink>
+        <NavLink class="nav-link" ActiveClass="nav-active" href="mappage">map</NavLink>
     </li>
     <li class="nav-item">
-        <NavLink class="nav-link" href="me">
-            <button class="button">Me</button>
-        </NavLink>
+        <NavLink class="nav-link" ActiveClass="nav-active" href="me">me</NavLink>
     </li>
-    <li class="nav-item">
-        <NavLink class="nav-link" href="login">
-            <button class="button">Login</button>
-        </NavLink>
-    </li>
+    @* <li class="nav-item">
+        <NavLink class="nav-link" href="login">Login</NavLink>
+    </li> *@
 </div>
