@@ -1,0 +1,73 @@
+﻿.left-side{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin-left: 3rem;
+    margin:2rem
+}
+
+h1 {
+    margin-left: 1rem;
+    margin-bottom: 0;
+}
+
+.societies-list {
+    margin:1rem;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.society-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3rem;
+    padding: 3rem;
+    width: 7rem;
+    background-color: #33673B;
+    border-radius: 2rem;
+    color: #AECFC1;
+    font-size: 5rem;
+    transition: 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.society-card > h2 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.society-card:hover {
+    background-color: #358540;
+}
+
+.cards{
+    background-color: #FF9F43;
+    padding: 3rem;
+    margin: 1rem;
+    display:flex;
+    position: relative;
+}
+
+.card{
+    flex:1;
+}
+
+.add-button{
+    background: transparent;
+    border: none;
+    font-size:0;
+    position:absolute;
+    top:11rem;
+    padding-left:11rem;
+}
+.calendar{
+    display:flex;
+    flex-direction: column;
+    width:35%;
+    margin:3rem;
+    background-color: #AECFC1;
+}
