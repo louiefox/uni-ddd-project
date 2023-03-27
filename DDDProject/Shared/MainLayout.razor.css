@@ -6,7 +6,7 @@
 }
 
 .main {
-    flex: 1;
+    height: 85%;
     background-color: #FBD1A2;
 }
 
@@ -21,7 +21,5 @@
 .footer {
     background-color: #FF9F43;
     width: 100%;
-    height: 10%;
-    display: flex;
-    flex-direction: row;
+    height: 5%;
 }
