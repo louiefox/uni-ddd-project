@@ -33,10 +33,15 @@
 }
 
 .search-box > span {
-    font-size: 3rem;
+    font-size: 90%;
     color: #00250050;
     margin-left: 2rem;
 }
+
+input[type=text] {
+    border: none;
+    background-color: transparent;
+  }
 
 .content-area {
     display: flex;
