@@ -28,20 +28,43 @@
     }
     else
     {
-
+        <button class="btn_signin" @onclick="LogoutButton">Sign out</button>
     }
 </div>
 
 @code {
     private bool _isLoggedIn = false;
 
+    private async void LoadLoginCookies()
+    {
+        LoginService.IsLoggedIn = await cookie.GetValue( "loggedin" ) == "1";
+        _isLoggedIn = LoginService.IsLoggedIn;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+            LoadLoginCookies();
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
     private async void LoginButton()
     {
         _isLoggedIn = true;
 
-        await cookie.SetValue("mytest20", "Hello Mohsen!");
-        Console.WriteLine( await cookie.GetValue("mytest20") );
+        LoginService.IsLoggedIn = true;
+        await cookie.SetValue( "loggedin", "1" );
+        await InvokeAsync(StateHasChanged);
+    }
 
+    private async void LogoutButton()
+    {
+        _isLoggedIn = false;
+
+        LoginService.IsLoggedIn = false;
+        await cookie.SetValue( "loggedin", "0" );
         await InvokeAsync(StateHasChanged);
     }
 }
