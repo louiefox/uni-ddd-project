@@ -131,6 +131,23 @@ input{
     border-radius: 5px;
 }
 
+.btn_edit{
+    width: 430px;
+    height: 70px;
+   
+
+    text-align: center;
+    display: block;
+    text-decoration: none;
+
+    font-size: 40px;
+    font-weight: 500;
+    color: rgb(0, 0, 0);
+
+    background-color: #FF9F43;
+    border-radius: 5px;
+}
+
 h1{
     margin-left: 200px;
     margin-top: 0px;
