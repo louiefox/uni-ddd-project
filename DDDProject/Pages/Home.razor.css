@@ -47,9 +47,9 @@
 
 .anouncements {
     background-color: #AECFC1;
+    font-size: 2vh;
     padding-left: 3rem;
     flex-grow: 1;
-    line-height: 0.6;
 }
 
 .events-section {
