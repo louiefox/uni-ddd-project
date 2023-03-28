@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DDDProject.Utils;
 
 namespace DDDProject
 {
@@ -29,6 +30,7 @@ namespace DDDProject
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<ICookie, Cookie>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
