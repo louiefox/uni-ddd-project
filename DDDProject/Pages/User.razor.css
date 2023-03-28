@@ -32,6 +32,44 @@
     margin-left: 700px;
 }
 
+.Profile_image{
+    position: absolute;  
+    
+}
+
+.Logout{
+    position: absolute;     
+    margin-top: 800px;
+}
+
+.Profile_info{
+    position: absolute;  
+    margin-left: 50px;
+
+    font-weight: 400;
+    font-size: 22px; 
+}
+
+.sns_icon{
+    position: absolute;  
+    margin-top: 100px;
+    margin-left: 250px;
+}
+
+.Bio{
+    position: absolute;  
+    margin-top: 150px;
+    margin-left: 20px;
+}
+
+.Bio_box{
+    width: 740px;
+    height: 350px;
+
+    background-color: #AECFC1;
+    border-radius: 5px;
+}
+
 label {   
       
     width: 219px;
@@ -98,4 +136,23 @@ h1{
     margin-top: 0px;
     margin-bottom: 0px;
 }
+
+h2{
+    margin-left: 200px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 23px; 
+}
+
+h3{
+    font-size: 45px; 
+    margin-bottom: 0px;
+}
+
+h4{
+    font-size: 35px; 
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
 

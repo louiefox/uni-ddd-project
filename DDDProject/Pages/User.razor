@@ -28,7 +28,32 @@
     }
     else
     {
-        <button class="btn_signin" @onclick="LogoutButton">Sign out</button>
+        <div class ="Profile_image">
+            <img src ="profile_icon.png" width="150" height="150">
+        </div>
+
+        <div class="Profile_info">
+            <h1>Steve</h1>
+            <h2>Second Year Computer Science</h2>
+        </div>
+
+        <div class ="sns_icon">
+            <img src ="icon_instagram.png" width="40" height="40">
+            <img src ="icon_instagram.png" width="40" height="40">
+            <img src ="icon_instagram.png" width="40" height="40">
+        </div>
+
+        <div class ="Bio">
+            <h3>Bio:</h3>     
+            <div class ="Bio_box">
+            <h4>I love Socks!</h4>
+            </div>
+        </div>
+
+        <div class ="Logout">
+            <button class="btn_signin" @onclick="LogoutButton">Sign out</button>
+        </div>
+        
     }
 </div>
 
