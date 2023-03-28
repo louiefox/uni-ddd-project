@@ -50,24 +50,8 @@
     font-size: 22px; 
 }
 
-.sns_icon{
-    position: absolute;  
-    margin-top: 100px;
-    margin-left: 250px;
-}
-
-.Bio{
-    position: absolute;  
-    margin-top: 150px;
-    margin-left: 20px;
-}
-
-.Bio_box{
-    width: 740px;
-    height: 350px;
-
-    background-color: #AECFC1;
-    border-radius: 5px;
+.sns_image{ 
+    margin-top: 15px;  
 }
 
 label {   
