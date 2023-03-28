@@ -14,8 +14,28 @@
 }
 
 .search-bars {
-    background-color: blue;
+    display: flex;
+    flex-direction: row;
     height: 8rem;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 999px;
+    flex-grow: 1;
+    background-color: #00250010;
+}
+
+.search-box:first-child {
+    margin-right: 1rem;
+}
+
+.search-box > span {
+    font-size: 3rem;
+    color: #00250050;
+    margin-left: 2rem;
 }
 
 .content-area {
