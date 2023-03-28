@@ -1,26 +1,38 @@
-﻿.body{
+﻿.container {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
 }
 
-.left-side{
+.left-side {
     display: flex;
     flex-direction: column;
-    width: 65%;
-    margin-left: 3rem;
-    margin:2rem
+    width: 70%;
+    margin: 5rem;
+    margin-right: 0;
+}
+
+.search-bars {
+    background-color: blue;
+    height: 8rem;
+}
+
+.content-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 4rem;
 }
 
 .anouncements{
     background-color: #AECFC1;
-    padding-left:1rem;
+    padding-left: 3rem;
     flex-grow: 1;
     line-height: 0.6;
 }
 
-.cards{
+.events-section {
     background-color: #FF9F43;
     padding: 1rem;
     display:flex;
@@ -53,8 +65,64 @@
     right:0
 }
 
-.calendar{
-    width:35%;
-    margin-right:3rem;
+.calendar {
+    display:flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 5rem;
+    margin-left: 4rem;
     background-color: #AECFC1;
+}
+
+.calendar > h1 {
+    margin: 0;
+    margin-top: 1rem;
+    width: 100%;
+    text-align: center;
+    color: #002500;
+    font-size: 6rem;
+}
+
+.calendar-date {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 2.5rem;
+    margin: 2rem 0;
+    background-color: #33673B50;
+}
+
+.calendar-date > h2 {
+    margin: 0;
+    margin-left: 2rem;
+    color: #002500;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.calendar > h3 {
+    margin: 0;
+    margin-left: 2rem;
+    color: #002500;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.calendar > h4 {
+    margin: 0;
+    margin-left: 2rem;
+    margin-top: .5rem;
+    color: #00250050;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.calendar-notice {
+    width: 80%;
+    margin: 0 10%;
+    margin-top: 5rem;
+    text-align: center;
+    color: #002500;
+    font-size: 2rem;
+    font-weight: 700;
 }
