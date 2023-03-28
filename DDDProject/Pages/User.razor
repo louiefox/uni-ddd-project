@@ -1,9 +1,10 @@
 ﻿@page "/user"
 @inject ICookie cookie
+@inject NavigationManager uriHelper;
 
-<div class="container">
-    @if (!_isLoggedIn)
-    {
+@if (!_isLoggedIn)
+{
+    <div class="container">
         <div class="form">
             <div class="login_form_email">
                 <label>Email</label><br/>
@@ -25,12 +26,41 @@
                 <img src="login_page_art.png" width="844" height="526">
             </div>
         </div>
-    }
-    else
-    {
-        <button class="btn_signin" @onclick="LogoutButton">Sign out</button>
-    }
-</div>
+    </div>
+}
+else
+{
+    <div class="profile-container">
+        <div class="left-side">
+            <div class="profile-info">
+                <div class="profile-image"></div>
+                <div class="profile-text">
+                    <h1>Steve</h1>
+                    <h2>2nd Year Computer Science</h2>
+                </div>
+                <button class="profile-sign-out" @onclick="LogoutButton">Sign out</button>
+            </div>
+            <h1>Bio:</h1>
+            <div class="profile-bio">
+                I love socks!
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="profile-society">
+                <span class="oi oi-play-circle" aria-hidden="true"></span>
+            </div>
+            <div class="profile-society">
+                <span class="oi oi-book" aria-hidden="true"></span>
+            </div>
+            <div class="profile-society">
+                <span class="oi oi-musical-note" aria-hidden="true"></span>
+            </div>
+            <div class="profile-society">
+                <span class="oi oi-flash" aria-hidden="true"></span>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
     private bool _isLoggedIn = false;
@@ -57,6 +87,8 @@
         LoginService.IsLoggedIn = true;
         await cookie.SetValue( "loggedin", "1" );
         await InvokeAsync(StateHasChanged);
+
+        uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
     }
 
     private async void LogoutButton()
