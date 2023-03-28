@@ -49,27 +49,40 @@
     background-color: #AECFC1;
     padding-left: 3rem;
     flex-grow: 1;
+    line-height: 0.6;
 }
 
 .events-section {
     background-color: #FF9F43;
-    padding: 3rem;
-    display: flex;
-    position: relative;
-    margin-top: 4rem;
+    padding: 1rem;
+    display:flex;
+    flex-direction: row;
 }
 
-.card {
-    flex:1;
+.card{
+    margin:1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.blank-event {
+    display: flex;
+    flex-direction: column;
+    height: 9rem;
+    width: 14rem;
+    background-color: #33673B;
+}
+
+.details{
+    display: flex;
+    flex-direction: row;
 }
 
 .add-button{
     background: transparent;
     border: none;
-    font-size:0;
-    position:absolute;
-    top:11rem;
-    padding-left:11rem;
+    width: 5rem;
+    right:0
 }
 
 .calendar {

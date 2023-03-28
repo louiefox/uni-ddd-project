@@ -45,27 +45,33 @@ h1 {
 
 .cards {
     background-color: #FF9F43;
-    padding: 3rem;
+    padding: 1rem;
     display:flex;
-    position: relative;
+    flex-direction: row;
 }
 
-.card {
-    flex:1;
+.card{
+    margin:1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.blank-event {
+    display: flex;
+    flex-direction: column;
+    height: 9rem;
+    width: 14rem;
+    background-color: #33673B;
+}
+
+.details{
+    display: flex;
+    flex-direction: row;
 }
 
 .add-button{
     background: transparent;
     border: none;
-    font-size:0;
-    position:absolute;
-    top:11rem;
-    padding-left:11rem;
-}
-.calendar{
-    display:flex;
-    flex-direction: column;
-    width:35%;
-    margin:3rem;
-    background-color: #AECFC1;
+    width: 5rem;
+    right:0
 }
