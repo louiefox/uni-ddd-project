@@ -1,4 +1,4 @@
-name: My First YAML!
+name: Push To Windows VM
 
 # Run workflow on every push to the master branch
 on:
@@ -6,9 +6,10 @@ on:
     branches: [ master ]
 
 jobs:
-  open-git-on-a-virtual-machine:
-    # Use unbuntu latest image to run steps on
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: self-hostd
+  
     steps:
-    # uses Github's checkout action to checkout code from the master branch
     - uses: actions/checkout@v2
+    - name: Copy to host directory
+      run: powershell Copy-Item -Path C:\actions-runner\_work\uni-ddd-project\* -Destination C:\inetpub\wwwroot -force
