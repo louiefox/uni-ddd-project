@@ -191,6 +191,17 @@ h1{
     cursor: pointer;
 }
 
+.profile-edit{
+    background-color: #FF9F43;
+    border: none;
+    border-radius: 999px;
+    font-size: 2rem;
+    color: #002500;
+    padding: .5rem 2rem;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
 .left-side > h1 {
     margin: 0;
     margin-top: 5rem;
@@ -229,6 +240,14 @@ h1{
     justify-content: center;
     align-items: center;
 }
+
+.logout-conner{
+    position: absolute;
+    right: 60px;
+    bottom: 85px; 
+    
+}
+
 h2{
     margin-left: 200px;
     margin-top: 0px;
