@@ -57,7 +57,7 @@ input[type=text] {
 }
 
 .search-box:focus-within {
-    background-color: #00250020;
+    background-color: #00250030;
 }
 
 .content-area {
@@ -212,4 +212,75 @@ input[type=text] {
     color: #002500;
     font-size: 2rem;
     font-weight: 700;
+}
+
+/* Search Stuff */
+.search-area {
+    flex-grow: 1;
+    margin-top: 2rem;
+    padding: 3rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #FF9F43;
+    gap: 2rem;
+}
+
+.search-event-card {
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-event-display {
+    display: flex;
+    flex-direction: column;
+    height: 15vh;
+    background-color: #33673B;
+}
+
+.search-event-card > h1 {
+    margin: 0;
+    margin-top: 1rem;
+    color: #002500;
+    font-size: 1.6rem;
+}
+
+.search-event-card > h2 {
+    margin: 0;
+    margin-top: .1rem;
+    color: #00250050;
+}
+
+.search-event-card > h3 {
+    margin: 0;
+    margin-top: .2rem;
+    color: #002500;
+    font-weight: 500;
+}
+
+.society-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    width: 7rem;
+    background-color: #33673B;
+    border-radius: 2rem;
+    color: #AECFC1;
+    font-size: 5rem;
+    transition: 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+    height: 10rem;
+}
+
+.society-card > h2 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.society-card:hover {
+    background-color: #358540;
 }

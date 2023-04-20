@@ -5,43 +5,73 @@
         <div class="search-bars">
             <div class="search-box">
                 <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
-                <input type ="text" placeholder="Find Events">
+                <input type ="text" placeholder="Find Events" @bind="@searchEventsInput" @oninput="@((e) => refreshEventSearch((string)e.Value))" @onfocus="@startSearchingEvents" @onblur="@clearSearching">
             </div>
             <div class="search-box">
                 <span class="oi oi-magnifying-glass" aria-hidden="true"></span>
-                <input type ="text" placeholder="Find Societies">
+                <input type ="text" placeholder="Find Societies" @bind="@searchSocietiesInput" @oninput="@((e) => refreshSocietiesSearch((string)e.Value))" @onfocus="@startSearchingSocieties" @onblur="@clearSearching">
             </div>
         </div>
-        <div class="content-area">
-            <div class="anouncements">
-                <h1>Anouncements</h1>
-                <h3>The hoodies are ready! Come to the next meeting to collect yours</h3>
-                <p>Gaming Society</p>
-                <h3>Come to the next meeting to decide on our next movie.</h3>
-                <p>Book Society</p>
+        @if (!isSearchingEvents && !isSearchingSocieties)
+        {
+            <div class="content-area">
+                <div class="anouncements">
+                    <h1>Anouncements</h1>
+                    <h3>The hoodies are ready! Come to the next meeting to collect yours</h3>
+                    <p>Gaming Society</p>
+                    <h3>Come to the next meeting to decide on our next movie.</h3>
+                    <p>Book Society</p>
+                </div>
+                <div class="events-section"> 
+                    <h1>Upcoming Public Events</h1> 
+                    <div class="card">
+                        <div class="blank-event"/>
+                        <h1>Movie Night</h1>
+                        <h2>Anime Society</h2>
+                        <h3>21 Feb, 2023 Student Union</h3>
+                    </div>
+                    <div class="card">
+                        <div class="blank-event"/>
+                        <h1>Tryouts</h1>
+                        <h2>Basketball Society</h2>
+                        <h3>22 Feb, 2023 Sports Hall</h3>
+                    </div>
+                    <div class="card">
+                        <div class="blank-event"/>
+                        <h1>Trip to Gallery</h1>
+                        <h2>Art Society</h2>
+                        <h3>23 Feb, 2023 Ferens Art Gallery</h3>
+                    </div>
+                </div>
             </div>
-            <div class="events-section"> 
-                <h1>Upcoming Public Events</h1> 
-                <div class="card">
-                    <div class="blank-event"/>
-                    <h1>Movie Night</h1>
-                    <h2>Anime Society</h2>
-                    <h3>21 Feb, 2023 Student Union</h3>
-                </div>
-                <div class="card">
-                    <div class="blank-event"/>
-                    <h1>Tryouts</h1>
-                    <h2>Basketball Society</h2>
-                    <h3>22 Feb, 2023 Sports Hall</h3>
-                </div>
-                <div class="card">
-                    <div class="blank-event"/>
-                    <h1>Trip to Gallery</h1>
-                    <h2>Art Society</h2>
-                    <h3>23 Feb, 2023 Ferens Art Gallery</h3>
-                </div>
+        }
+        else
+        {
+            <div class="search-area">
+                @if (isSearchingEvents)
+                {
+                    @foreach (Event eventData in searchResultsEvents)
+                    {
+                        <div class="search-event-card">
+                            <div class="search-event-display"/>
+                            <h1>@eventData.Name</h1>
+                            <h2>@eventData.Society</h2>
+                            <h3>@eventData.DateLocation</h3>
+                        </div>
+                    }
+                }
+                else
+                {
+                    @foreach (Society societyData in searchResultsSocieties)
+                    {
+                        <a class="society-card">
+                            <span class="oi oi-@societyData.Icon" aria-hidden="true"></span>
+                            <h2>@societyData.Name</h2>
+                        </a>
+                    }
+                }
             </div>
-        </div>
+        }
     </div>
     <div class="calendar">
         <h1>Calendar</h1>
@@ -55,3 +85,96 @@
         <div class="calendar-notice">No more events in your calendar</div> 
     </div>
 </div>
+
+@code {
+    struct Event
+    {
+        public string Name;
+        public string Society;
+        public string DateLocation;
+    }
+
+    struct Society
+    {
+        public string Name;
+        public string Icon;
+    }
+
+    private bool isSearchingEvents = false;
+    private bool isSearchingSocieties = false;
+    private string searchEventsInput { get; set; } = "";
+    private string searchSocietiesInput { get; set; } = "";
+    private List<Event> eventsList;
+    private List<Event> searchResultsEvents = new();
+    private List<Society> societiesList;
+    private List<Society> searchResultsSocieties = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventsList = new() {
+            new() { Name = "Movie Night", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
+            new() { Name = "Test", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
+            new() { Name = "Basketball", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
+            new() { Name = "Arts", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
+            new() { Name = "Cheese Eating", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
+            new() { Name = "Game Playing", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" }
+        };
+
+        societiesList = new() {
+            new() { Name = "Gaming", Icon = "play-circle" },
+            new() { Name = "Books", Icon = "book" },
+            new() { Name = "Music", Icon = "musical-note" },
+            new() { Name = "Science", Icon = "flash" }
+        };
+    }
+
+    private void refreshEventSearch(string input)
+    {
+        searchEventsInput = input.ToLower();
+
+        searchResultsEvents.Clear();
+
+        foreach (Event eventData in eventsList)
+        {
+            if(!eventData.Name.ToLower().Contains(searchEventsInput))
+                continue;
+
+            searchResultsEvents.Add(eventData);
+        }
+    }
+
+    private void refreshSocietiesSearch(string input)
+    {
+        searchSocietiesInput = input.ToLower();
+
+        searchResultsSocieties.Clear();
+
+        foreach (Society societyData in societiesList)
+        {
+            if(!societyData.Name.ToLower().Contains(searchSocietiesInput))
+                continue;
+
+            searchResultsSocieties.Add(societyData);
+        }
+    }
+
+    private void startSearchingEvents()
+    {
+        isSearchingEvents = true;
+        refreshEventSearch("");
+    }
+
+    private void startSearchingSocieties()
+    {
+        isSearchingSocieties = true;
+        refreshSocietiesSearch("");
+    }
+
+    private void clearSearching()
+    {
+        searchEventsInput = "";
+        searchSocietiesInput = "";
+        isSearchingEvents = false;
+        isSearchingSocieties = false;
+    }
+}
