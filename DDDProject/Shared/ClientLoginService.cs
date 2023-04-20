@@ -8,5 +8,6 @@ namespace DDDProject.Utils
     public static class ClientLoginService
     {
         public static bool IsLoggedIn = false;
+        public static string Username = "";
     }
 }

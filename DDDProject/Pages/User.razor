@@ -25,6 +25,8 @@
                 <button class="btn_signup">Sign up</button>
             </div>
 
+            <h2>@errorMessage</h2>
+
             <div class="login_image">
                 <img src="login_page_art.png" width="844" height="526">
             </div>
@@ -38,7 +40,7 @@ else
             <div class="profile-info">
                 <div class="profile-image"></div>
                 <div class="profile-text">
-                    <h1>Steve</h1>
+                    <h1>Steve @ClientLoginService.Username</h1>
                     <h2>2nd Year Computer Science</h2>
                     <div class ="sns_image">
                         <img src ="icon_instagram.png" width="35px" hight ="35px">
@@ -80,9 +82,12 @@ else
     private string _password { get; set; }
     private bool _isLoggedIn = false;
 
+    private string errorMessage = "";
+
     private async void LoadLoginCookies()
     {
         ClientLoginService.IsLoggedIn = await cookie.GetValue( "loggedin" ) == "1";
+        ClientLoginService.Username = await cookie.GetValue( "logintoken" );
         _isLoggedIn = ClientLoginService.IsLoggedIn;
         await InvokeAsync(StateHasChanged);
     }
@@ -100,20 +105,21 @@ else
         try
         {
             string loginToken = await loginService.RequestLoginToken(_username, _password);
-            Console.WriteLine(loginToken);
+            
+            _isLoggedIn = true;
+
+            ClientLoginService.IsLoggedIn = true;
+            ClientLoginService.Username = loginToken;
+            await cookie.SetValue( "loggedin", "1" );
+            await cookie.SetValue( "logintoken", loginToken );
+            await InvokeAsync(StateHasChanged);
+
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
         }
         catch(Exception e)
         {
-            Console.WriteLine(e.Message);
+            errorMessage = e.Message;
         }
-
-        /*_isLoggedIn = true;
-
-        LoginService.IsLoggedIn = true;
-        await cookie.SetValue( "loggedin", "1" );
-        await InvokeAsync(StateHasChanged);
-
-        uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);*/
     }
 
     private async void LogoutButton()
@@ -121,7 +127,9 @@ else
         _isLoggedIn = false;
 
         ClientLoginService.IsLoggedIn = false;
+        ClientLoginService.Username = "";
         await cookie.SetValue( "loggedin", "0" );
+        await cookie.SetValue( "logintoken", "" );
         await InvokeAsync(StateHasChanged);
     }
 }

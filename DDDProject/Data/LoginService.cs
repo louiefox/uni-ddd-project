@@ -19,7 +19,7 @@ namespace DDDProject.Data
 
             if(studentDocument != null && studentDocument.GetValue("password") == password)
             {
-                return Task.FromResult("testtttt");
+                return Task.FromResult(username);
             }
             
             return Task.FromException<string>(new Exception("Invalid login information."));
