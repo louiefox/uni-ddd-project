@@ -24,5 +24,22 @@ namespace DDDProject.Data
             
             return Task.FromException<string>(new Exception("Invalid login information."));
         }
+
+        public Task<string> RequestUserInfo(string loginToken)
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+            var collection = database.GetCollection<BsonDocument>("Users");
+
+            var filter = Builders<BsonDocument>.Filter.Eq("username", loginToken);
+            var studentDocument = collection.Find(filter).FirstOrDefault();
+
+            if(studentDocument != null)
+            {
+                return Task.FromResult((string)studentDocument.GetValue("fullname"));
+            }
+            
+            return Task.FromException<string>(new Exception("Invalid login token."));
+        }
     }
 }

@@ -10,7 +10,7 @@
     <div class="container">
         <div class="form">
             <div class="login_form_email">
-                <label>Email</label><br/>
+                <label>Student ID</label><br/>
                 <input type ="text" @bind="@_username" @oninput="@((e) => _username=(string)e.Value)">       
             </div>
 
@@ -40,7 +40,7 @@ else
             <div class="profile-info">
                 <div class="profile-image"></div>
                 <div class="profile-text">
-                    <h1>Steve @ClientLoginService.Username</h1>
+                    <h1>@ClientLoginService.Fullname @ClientLoginService.Username</h1>
                     <h2>2nd Year Computer Science</h2>
                     <div class ="sns_image">
                         <img src ="icon_instagram.png" width="35px" hight ="35px">
@@ -110,8 +110,11 @@ else
 
             ClientLoginService.IsLoggedIn = true;
             ClientLoginService.Username = loginToken;
+            ClientLoginService.FetchUserInfo();
+            
             await cookie.SetValue( "loggedin", "1" );
             await cookie.SetValue( "logintoken", loginToken );
+
             await InvokeAsync(StateHasChanged);
 
             uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
