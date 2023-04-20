@@ -26,6 +26,7 @@
     border-radius: 999px;
     flex-grow: 1;
     background-color: #00250010;
+    transition: 0.2s;
 }
 
 .search-box:first-child {
@@ -33,15 +34,31 @@
 }
 
 .search-box > span {
-    font-size: 90%;
+    font-size: 2.5rem;
     color: #00250050;
     margin-left: 2rem;
 }
 
 input[type=text] {
     border: none;
+    outline-width: 0;
     background-color: transparent;
-  }
+    flex: 1;
+    height: 100%;
+    margin-left: 1rem;
+    color: #00250075;
+    font-size: 2rem;
+    font-style: italic;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #00250050;
+    opacity: 1; /* Firefox */
+}
+
+.search-box:focus-within {
+    background-color: #00250020;
+}
 
 .content-area {
     display: flex;
@@ -51,43 +68,88 @@ input[type=text] {
 }
 
 .anouncements {
+    position: relative;
     background-color: #AECFC1;
-    font-size: 2vh;
-    padding-left: 3rem;
-    flex-grow: 1;
+    font-size: 1.75rem;
+    color: #002500;
+    padding: 3rem;
+}
+
+.anouncements > h1 {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: -2.5rem;
+}
+
+.anouncements > h3 {
+    margin: 0;
+    font-weight: 500;
+}
+
+.anouncements > p {
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #33673B;
 }
 
 .events-section {
+    position: relative;
     background-color: #FF9F43;
-    padding: 1rem;
+    margin-top: 3rem;
+    flex-grow: 1;
     display:flex;
     flex-direction: row;
+    padding: 3rem;
 }
 
-.card{
-    margin:1rem;
+.events-section > h1 {
+    font-size: 3rem;
+    color: #002500;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: -2.5rem;
+}
+
+.card {
+    margin-right: 3rem;
+    width: 33%;
     display: flex;
     flex-direction: column;
+}
+
+.card:last-child {
+    margin-right: 0;
 }
 
 .blank-event {
     display: flex;
     flex-direction: column;
-    height: 9rem;
-    width: 14rem;
+    flex-grow: 1;
     background-color: #33673B;
 }
 
-.details{
-    display: flex;
-    flex-direction: row;
+.card > h1 {
+    margin: 0;
+    margin-top: 2rem;
+    color: #002500;
+    font-size: 1.6rem;
 }
 
-.add-button{
-    background: transparent;
-    border: none;
-    width: 5rem;
-    right:0
+.card > h2 {
+    margin: 0;
+    margin-top: .1rem;
+    color: #00250050;
+}
+
+.card > h3 {
+    margin: 0;
+    margin-top: .2rem;
+    color: #002500;
+    font-weight: 500;
 }
 
 .calendar {

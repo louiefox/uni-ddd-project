@@ -2,13 +2,12 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 120vh;
+    height: 100vh;
 }
 
 .main {
     height: 85%;
     background-color: #FBD1A2;
-    flex: 1;
 }
 
 .top-bar {
