@@ -30,6 +30,7 @@ namespace DDDProject
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<LoginService>();
+            services.AddSingleton<SocietyDataService>();
             services.AddScoped<ICookie, Cookie>();
         }
 

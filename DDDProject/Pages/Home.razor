@@ -1,4 +1,7 @@
-﻿@page "/"
+﻿@using DDDProject.Data;
+@inject SocietyDataService societyDataService
+
+@page "/"
 
 <div class="container">
     <div class="left-side">
@@ -62,11 +65,11 @@
                 }
                 else
                 {
-                    @foreach (Society societyData in searchResultsSocieties)
+                    @foreach (SocietyData society in searchResultsSocieties)
                     {
                         <a class="society-card">
-                            <span class="oi oi-@societyData.Icon" aria-hidden="true"></span>
-                            <h2>@societyData.Name</h2>
+                            <span class="oi oi-@society.Icon" aria-hidden="true"></span>
+                            <h2>@society.Name</h2>
                         </a>
                     }
                 }
@@ -94,20 +97,14 @@
         public string DateLocation;
     }
 
-    struct Society
-    {
-        public string Name;
-        public string Icon;
-    }
-
     private bool isSearchingEvents = false;
     private bool isSearchingSocieties = false;
     private string searchEventsInput { get; set; } = "";
     private string searchSocietiesInput { get; set; } = "";
     private List<Event> eventsList;
     private List<Event> searchResultsEvents = new();
-    private List<Society> societiesList;
-    private List<Society> searchResultsSocieties = new();
+    private List<SocietyData> societiesList;
+    private List<SocietyData> searchResultsSocieties = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -120,12 +117,7 @@
             new() { Name = "Game Playing", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" }
         };
 
-        societiesList = new() {
-            new() { Name = "Gaming", Icon = "play-circle" },
-            new() { Name = "Books", Icon = "book" },
-            new() { Name = "Music", Icon = "musical-note" },
-            new() { Name = "Science", Icon = "flash" }
-        };
+        societiesList = await societyDataService.RequestSocietiesList();
     }
 
     private void refreshEventSearch(string input)
@@ -149,12 +141,12 @@
 
         searchResultsSocieties.Clear();
 
-        foreach (Society societyData in societiesList)
+        foreach (SocietyData society in societiesList)
         {
-            if(!societyData.Name.ToLower().Contains(searchSocietiesInput))
+            if(!society.Name.ToLower().Contains(searchSocietiesInput))
                 continue;
 
-            searchResultsSocieties.Add(societyData);
+            searchResultsSocieties.Add(society);
         }
     }
 
