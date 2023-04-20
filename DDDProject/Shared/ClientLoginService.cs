@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace DDDProject.Utils
 {
-    public static class LoginService
+    public static class ClientLoginService
     {
         public static bool IsLoggedIn = false;
     }

@@ -29,7 +29,7 @@ namespace DDDProject
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<LoginService>();
             services.AddScoped<ICookie, Cookie>();
         }
 
