@@ -5,18 +5,18 @@
 @using DDDProject.Data
 @inject LoginService loginService
 
-@if (!_isLoggedIn)
+@if (!ClientLoginService.IsLoggedIn)
 {
     <div class="container">
         <div class="form">
             <div class="login_form_email">
                 <label>Student ID</label><br/>
-                <input type ="text" @bind="@_username" @oninput="@((e) => _username=(string)e.Value)">       
+                <input type ="text" @bind="@usernameInput" @oninput="@((e) => usernameInput=(string)e.Value)">       
             </div>
 
             <div class ="login_form_password">
                 <label>Password</label><br/>
-                <input type="password" @bind="@_password" @oninput="@((e) => _password=(string)e.Value)">
+                <input type="password" @bind="@passwordInput" @oninput="@((e) => passwordInput=(string)e.Value)">
             </div>
 
             <div class = "login_form_buttom">
@@ -78,17 +78,15 @@ else
 }
 
 @code {
-    private string _username { get; set; }
-    private string _password { get; set; }
-    private bool _isLoggedIn = false;
+    private string usernameInput { get; set; }
+    private string passwordInput { get; set; }
 
     private string errorMessage = "";
 
     private async void LoadLoginCookies()
     {
-        ClientLoginService.IsLoggedIn = await cookie.GetValue( "loggedin" ) == "1";
+        ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
         ClientLoginService.Username = await cookie.GetValue( "logintoken" );
-        _isLoggedIn = ClientLoginService.IsLoggedIn;
         await InvokeAsync(StateHasChanged);
     }
 
@@ -104,16 +102,12 @@ else
     {
         try
         {
-            string loginToken = await loginService.RequestLoginToken(_username, _password);
-            
-            _isLoggedIn = true;
+            string loginToken = await loginService.RequestLoginToken(usernameInput, passwordInput);
+            await cookie.SetValue( "logintoken", loginToken );
 
-            ClientLoginService.IsLoggedIn = true;
+            ClientLoginService.LoginToken = loginToken;
             ClientLoginService.Username = loginToken;
             ClientLoginService.FetchUserInfo();
-            
-            await cookie.SetValue( "loggedin", "1" );
-            await cookie.SetValue( "logintoken", loginToken );
 
             await InvokeAsync(StateHasChanged);
 
@@ -127,11 +121,7 @@ else
 
     private async void LogoutButton()
     {
-        _isLoggedIn = false;
-
-        ClientLoginService.IsLoggedIn = false;
-        ClientLoginService.Username = "";
-        await cookie.SetValue( "loggedin", "0" );
+        ClientLoginService.LoginToken = "";
         await cookie.SetValue( "logintoken", "" );
         await InvokeAsync(StateHasChanged);
     }
