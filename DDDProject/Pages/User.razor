@@ -121,6 +121,10 @@ else
     {
         ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
         ClientLoginService.Username = await cookie.GetValue( "logintoken" );
+
+        if(ClientLoginService.IsLoggedIn)
+            ClientLoginService.FetchUserInfo();
+        
         await InvokeAsync(StateHasChanged);
     }
 
