@@ -169,7 +169,7 @@ else
 
         try
         {
-            string loginToken = await loginService.RequestSetProfile(ClientLoginService.LoginToken, departmentEdit, bioEdit);
+            await loginService.RequestSetProfile(ClientLoginService.LoginToken, departmentEdit, bioEdit);
             await ClientLoginService.FetchUserInfo();
 
             await InvokeAsync(StateHasChanged);

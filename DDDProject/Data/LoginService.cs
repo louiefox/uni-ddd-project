@@ -8,10 +8,15 @@ namespace DDDProject.Data
 {
     public class LoginService
     {
-        public Task<string> RequestLoginToken(string username, string password)
+        public IMongoDatabase CreateDatabaseConnection()
         {
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
-            var database = dbClient.GetDatabase("DDDProject");
+            return dbClient.GetDatabase("DDDProject");
+        }
+
+        public Task<string> RequestLoginToken(string username, string password)
+        {
+            var database = CreateDatabaseConnection();
             var collection = database.GetCollection<BsonDocument>("Users");
 
             var filter = Builders<BsonDocument>.Filter.Eq("username", username);
@@ -27,8 +32,7 @@ namespace DDDProject.Data
 
         public Task<UserInfo> RequestUserInfo(string loginToken)
         {
-            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
-            var database = dbClient.GetDatabase("DDDProject");
+            var database = CreateDatabaseConnection();
             var collection = database.GetCollection<BsonDocument>("Users");
 
             string username = loginToken.Replace("token_", "");
@@ -51,10 +55,9 @@ namespace DDDProject.Data
             return Task.FromException<UserInfo>(new Exception("Invalid login token."));
         }
 
-        public Task<string> RequestSetProfile(string loginToken, string profileDepartment, string profileBio)
+        public Task RequestSetProfile(string loginToken, string profileDepartment, string profileBio)
         {
-            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
-            var database = dbClient.GetDatabase("DDDProject");
+            var database = CreateDatabaseConnection();
             var collection = database.GetCollection<BsonDocument>("Users");
 
             string username = loginToken.Replace("token_", "");
@@ -66,7 +69,7 @@ namespace DDDProject.Data
             var update2 = Builders<BsonDocument>.Update.Set("profileBio", profileBio);
             collection.UpdateOne(filter, update2);
 
-            return Task.FromException<string>(new Exception("Invalid login token."));
+            return Task.FromResult("success");
         }
     }
 }
