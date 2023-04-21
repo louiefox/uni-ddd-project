@@ -9,5 +9,7 @@ namespace DDDProject.Data
     {
         public string Username;
         public string Fullname;
+        public string ProfileBio;
+        public string ProfileDepartment;
     }
 }

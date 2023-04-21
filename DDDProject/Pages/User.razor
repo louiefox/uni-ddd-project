@@ -41,19 +41,19 @@ else if(!editing)
                 <div class="profile-image"></div>
                 <div class="profile-text">
                     <h1>@ClientLoginService.Fullname @ClientLoginService.Username</h1>
-                    <h2>@Department</h2>
+                    <h2>@ClientLoginService.ProfileDepartment</h2>
                     <div class ="sns_image">
                         <img src ="icon_instagram.png" width="35px" hight ="35px">
                         <img src ="icon_facebook.png" width="35px" hight ="35px">
                         <img src ="icon_discord.png" width="35px" hight ="35px">
                     </div>
                 </div>      
-                <button class="profile-edit" @onclick= " () => editing = true" >Edit</button>               
+                <button class="profile-edit" @onclick="StartEditing">Edit</button>           
             </div>
 
             <h1>Bio:</h1>
             <div class="profile-bio">
-                @Bio
+                @ClientLoginService.ProfileBio
             </div>
         </div>
         <div class="right-side">
@@ -83,19 +83,18 @@ else
                 <div class="profile-image"></div>
                 <div class="profile-text">
                     <h1>@ClientLoginService.Fullname @ClientLoginService.Username</h1>
-                    <input type="text" @bind="@Department" />               
-                </div>      
-                <button class="profile-edit" @onclick= " () => {editing = true; DepartmentBackup = Department; BioBackup = Bio;}" >Edit</button>               
+                    <input type="text" @bind="@ClientLoginService.ProfileDepartment" @oninput="@((e) => departmentEdit=(string)e.Value)" />         
+                </div>       
             </div>
 
             <h1>Bio:</h1>
             <div class="profile-bio">
-                <textarea @bind="@Bio"></textarea>
+                <textarea @bind="@ClientLoginService.ProfileBio" @oninput="@((e) => bioEdit=(string)e.Value)" />
             </div>
 
             <div class = edit-buttons>
-                <button class="profile-save" @onclick="() => editing = false">Save</button>
-                <button class="profile-cancel" @onclick="() => {editing = false; Department = DepartmentBackup; Bio = BioBackup;}">Cancel</button>
+                <button class="profile-save" @onclick="SaveEdits">Save</button>
+                <button class="profile-cancel" @onclick="() => editing = false">Cancel</button>
             </div>
         
         </div>
@@ -106,15 +105,10 @@ else
 @code {
     private string usernameInput { get; set; }
     private string passwordInput { get; set; }
-
     private string errorMessage = "";
 
-    private string Department = "2nd Year Computer Science";
-    private string Bio =  " I love socks!";
-
-    private string DepartmentBackup = "2nd Year Computer Science";
-    private string BioBackup =  "I love socks!";
-
+    private string departmentEdit = "Loading";
+    private string bioEdit =  "Loading";
     private bool editing = false;
 
     private async void LoadLoginCookies()
@@ -122,7 +116,7 @@ else
         ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
 
         if(ClientLoginService.IsLoggedIn)
-            ClientLoginService.FetchUserInfo();
+            await ClientLoginService.FetchUserInfo();
         
         await InvokeAsync(StateHasChanged);
     }
@@ -143,7 +137,7 @@ else
             await cookie.SetValue( "logintoken", loginToken );
 
             ClientLoginService.LoginToken = loginToken;
-            ClientLoginService.FetchUserInfo();
+            await ClientLoginService.FetchUserInfo();
 
             await InvokeAsync(StateHasChanged);
 
@@ -162,5 +156,30 @@ else
         await InvokeAsync(StateHasChanged);
     }
 
+    private void StartEditing()
+    {
+        editing = true; 
+        departmentEdit = ClientLoginService.ProfileDepartment;
+        bioEdit = ClientLoginService.ProfileBio;
+    }
+
+    private async void SaveEdits()
+    {
+        editing = false;
+
+        try
+        {
+            string loginToken = await loginService.RequestSetProfile(ClientLoginService.LoginToken, departmentEdit, bioEdit);
+            await ClientLoginService.FetchUserInfo();
+
+            await InvokeAsync(StateHasChanged);
+
+            uriHelper.NavigateTo(uriHelper.Uri, forceLoad: true);
+        }
+        catch(Exception e)
+        {
+            errorMessage = e.Message;
+        }
+    }
 }
 
