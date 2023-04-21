@@ -3,25 +3,30 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    color: #002500;
+    font-size: 2.8rem;
+    font-weight: 500;
 }
 
 .container {
     display: flex;
     flex-direction: column;
-    width: 65%;
-    margin: 5rem;
+    width: 100%;
+    height: 100%;
 }
 
 h1 {
-    margin: 0;
+    margin: 5rem;
     margin-bottom: 1rem;
+    color: #002500;
+    font-size: 2.8rem;
 }
 
 .societies-list {
     display: flex;
     flex-direction: row;
-    flex-grow: 1;
-    margin-bottom: 4rem;
+    margin: 5rem;
+    margin-top: 0;
 }
 
 .society-card {
@@ -50,35 +55,61 @@ h1 {
     background-color: #358540;
 }
 
-.cards {
+.events-section {
+    position: relative;
     background-color: #FF9F43;
-    padding: 1rem;
+    margin: 5rem;
+    margin-top: 0;
+    flex-grow: 1;
     display:flex;
     flex-direction: row;
+    padding: 3rem;
+    width: 65%;
 }
 
-.card{
-    margin:1rem;
+.events-section > h1 {
+    font-size: 3rem;
+    color: #002500;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: -2.5rem;
+}
+
+.card {
+    margin-right: 3rem;
+    width: 33%;
     display: flex;
     flex-direction: column;
+}
+
+.card:last-child {
+    margin-right: 0;
 }
 
 .blank-event {
     display: flex;
     flex-direction: column;
-    height: 9rem;
-    width: 14rem;
+    flex-grow: 1;
     background-color: #33673B;
 }
 
-.details{
-    display: flex;
-    flex-direction: row;
+.card > h1 {
+    margin: 0;
+    margin-top: 2rem;
+    color: #002500;
+    font-size: 1.6rem;
 }
 
-.add-button{
-    background: transparent;
-    border: none;
-    width: 5rem;
-    right:0
+.card > h2 {
+    margin: 0;
+    margin-top: .1rem;
+    color: #00250050;
+}
+
+.card > h3 {
+    margin: 0;
+    margin-top: .2rem;
+    color: #002500;
+    font-weight: 500;
 }

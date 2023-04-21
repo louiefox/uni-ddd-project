@@ -7,6 +7,7 @@ namespace DDDProject.Data
 {
     public struct SocietyData
     {
+        public string SocietyID;
         public string Name;
         public string Icon;
     }

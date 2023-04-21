@@ -21,6 +21,7 @@ namespace DDDProject.Data
             foreach(BsonDocument doc in documents)
             {
                 societiesList.Add(new() {
+                    SocietyID = (string)doc.GetValue("societyID"),
                     Name = (string)doc.GetValue("name"),
                     Icon = (string)doc.GetValue("icon")
                 });

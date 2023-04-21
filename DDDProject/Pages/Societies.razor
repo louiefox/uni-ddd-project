@@ -1,70 +1,57 @@
-﻿@page "/societies"
+﻿@using DDDProject.Data;
+@inject SocietyDataService societyDataService
+
+@page "/societies"
 
 <div class="container">
     @if (ClientLoginService.IsLoggedIn)
     {
         <h1>Your Societies</h1>
         <div class="societies-list">
-            <a class="society-card" href="/society/gaming">
-                <span class="oi oi-play-circle" aria-hidden="true"></span>
-                <h2>Gaming</h2>
-            </a>
-            <a class="society-card">
-                <span class="oi oi-book" aria-hidden="true"></span>
-                <h2>Books</h2>
-            </a>
-            <a class="society-card">
-                <span class="oi oi-musical-note" aria-hidden="true"></span>
-                <h2>Music</h2>
-            </a>
-            <a class="society-card">
-                <span class="oi oi-flash" aria-hidden="true"></span>
-                <h2>Science</h2>
-            </a>
+            @foreach (SocietyData society in mySocietiesList)
+            {
+                <a class="society-card" href="/society/@society.SocietyID">
+                    <span class="oi oi-@society.Icon" aria-hidden="true"></span>
+                    <h2>@society.Name</h2>
+                </a>
+            }
             <a class="society-card">
                 <span class="oi oi-plus" aria-hidden="true"></span>
             </a>
         </div>
-        <h1>Your Society Events</h1>
-        <div class="cards">
-            <div class="card">
-                <div class="blank-event"/>
-                <div class = "text">
-                    <h3>Event name</h3>
-                    <div class="details">
-                        <p>Society name <br> Date</p>
-                        <button class="add-button"><img src="add_cal.png"style="max-width:4rem"/></button>
-                    </div>
+        <div class="events-section"> 
+            <h1>Your Society Events</h1> 
+
+            @foreach (EventData eventData in myEventsDisplayList)
+            {
+                <div class="card">
+                    <div class="blank-event"/>
+                    <h1>@eventData.Name</h1>
+                    <h2>@eventData.SocietyName Society</h2>
+                    <h3>@eventData.DateLocation</h3>
                 </div>
-            </div>
-            <div class="card">
-                <div class="blank-event"/>
-                <div class = "text">
-                    <h3>Event 2 name</h3>
-                    <div class="details">
-                        <p>Society name <br> Date</p>
-                        <button class="add-button"><img src="add_cal.png"style="max-width:4rem"/></button>
-                    </div>
-                </div>
-                
-            </div>
-            <div class="card">
-                <div class="blank-event"/>
-                <div class = "text">
-                    <h3>Event 3 name</h3>
-                    <div class="details">
-                        <p>Society name <br> Date</p>
-                        <button class="add-button"><img src="add_cal.png"style="max-width:4rem"/></button>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     }
     else
     {
-        <h1 class="login-notice">You must be logged in to view this.</h1>
+        <div class="login-notice">You must be logged in to view this.</div>
     }
 </div>
-<div class="calendar">
 
-</div>
+@code {
+    private List<SocietyData> mySocietiesList;
+    private List<EventData> myEventsList;
+    private List<EventData> myEventsDisplayList = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        mySocietiesList = await societyDataService.RequestSocietiesList();
+        myEventsList = await societyDataService.RequestEventsList();
+
+        for(int i = 0; i < 3; i++)
+        {
+            myEventsDisplayList.Add(myEventsList.ToArray()[i]);
+        }
+    }
+}
