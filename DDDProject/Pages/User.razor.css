@@ -202,6 +202,31 @@ h1{
     cursor: pointer;
 }
 
+.profile-save{
+    background-color: #FF9F43;
+    border: none;
+    border-radius: 999px;
+    font-size: 2rem;
+    width: 250px;
+    color: #002500; 
+    margin-left: 2rem;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+.profile-cancel{
+    
+    background-color: #FF9F43;
+    border: none;
+    border-radius: 999px;
+    font-size: 2rem;
+    width: 250px;
+    color: #002500;
+    margin-left: 2rem;
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
 .left-side > h1 {
     margin: 0;
     margin-top: 5rem;
@@ -217,6 +242,7 @@ h1{
     padding: 3rem;
     color: #002500;
     font-size: 3rem;
+   
 }
 
 .right-side {
@@ -246,6 +272,17 @@ h1{
     right: 60px;
     bottom: 85px; 
     
+}
+
+textarea{
+    background-color: #aecfc100;
+    flex-grow: 1;
+    margin-top: 1rem;
+    color: #002500;
+    border: none;
+    font-size: 3rem;
+    width: 100%;
+    height: 100%;
 }
 
 h2{
