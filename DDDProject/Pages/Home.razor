@@ -70,14 +70,21 @@
     </div>
     <div class="calendar">
         <h1>Calendar</h1>
-        <span class="calendar-date"><h2>19th Feb</h2></span>
-        <h3>Terrarium making</h3>
-        <h4>Plant Society</h4>
-        <span class="calendar-date"><h2>23rd Feb</h2></span>
-        <h3>Movie night</h3>
-        <h4>Book Society</h4>
-        <span class="calendar-date"></span>
-        <div class="calendar-notice">No more events in your calendar</div> 
+        @if (ClientLoginService.IsLoggedIn)
+        {
+            <span class="calendar-date"><h2>19th Feb</h2></span>
+            <h3>Terrarium making</h3>
+            <h4>Plant Society</h4>
+            <span class="calendar-date"><h2>23rd Feb</h2></span>
+            <h3>Movie night</h3>
+            <h4>Book Society</h4>
+            <span class="calendar-date"></span>
+            <div class="calendar-notice">No more events in your calendar</div> 
+        }
+        else
+        {
+            <div class="calendar-notice">You must login to see your calendar</div> 
+        }
     </div>
 </div>
 

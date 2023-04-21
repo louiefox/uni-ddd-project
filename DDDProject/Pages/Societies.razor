@@ -1,30 +1,32 @@
 ﻿@page "/societies"
 
 <div class="container">
-    <h1>Your Societies</h1>
-    <div class="societies-list">
-        <a class="society-card" href="/society/gaming">
-            <span class="oi oi-play-circle" aria-hidden="true"></span>
-            <h2>Gaming</h2>
-        </a>
-        <a class="society-card">
-            <span class="oi oi-book" aria-hidden="true"></span>
-            <h2>Books</h2>
-        </a>
-        <a class="society-card">
-            <span class="oi oi-musical-note" aria-hidden="true"></span>
-            <h2>Music</h2>
-        </a>
-        <a class="society-card">
-            <span class="oi oi-flash" aria-hidden="true"></span>
-            <h2>Science</h2>
-        </a>
-        <a class="society-card">
-            <span class="oi oi-plus" aria-hidden="true"></span>
-        </a>
-    </div>
-    <h1>Your Society Events</h1>
-    <div class="cards">
+    @if (ClientLoginService.IsLoggedIn)
+    {
+        <h1>Your Societies</h1>
+        <div class="societies-list">
+            <a class="society-card" href="/society/gaming">
+                <span class="oi oi-play-circle" aria-hidden="true"></span>
+                <h2>Gaming</h2>
+            </a>
+            <a class="society-card">
+                <span class="oi oi-book" aria-hidden="true"></span>
+                <h2>Books</h2>
+            </a>
+            <a class="society-card">
+                <span class="oi oi-musical-note" aria-hidden="true"></span>
+                <h2>Music</h2>
+            </a>
+            <a class="society-card">
+                <span class="oi oi-flash" aria-hidden="true"></span>
+                <h2>Science</h2>
+            </a>
+            <a class="society-card">
+                <span class="oi oi-plus" aria-hidden="true"></span>
+            </a>
+        </div>
+        <h1>Your Society Events</h1>
+        <div class="cards">
             <div class="card">
                 <div class="blank-event"/>
                 <div class = "text">
@@ -57,6 +59,11 @@
                 </div>
             </div>
         </div>
+    }
+    else
+    {
+        <h1 class="login-notice">You must be logged in to view this.</h1>
+    }
 </div>
 <div class="calendar">
 
