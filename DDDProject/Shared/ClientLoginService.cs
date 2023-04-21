@@ -22,7 +22,10 @@ namespace DDDProject.Utils
         public static async void FetchUserInfo()
         {
             LoginService loginService = new();
-            Fullname = await loginService.RequestUserInfo(LoginToken);
+
+            UserInfo user = await loginService.RequestUserInfo(LoginToken);
+            Username = user.Username;
+            Fullname = user.Fullname;
         }
     }
 }

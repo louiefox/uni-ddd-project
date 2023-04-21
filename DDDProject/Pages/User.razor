@@ -120,7 +120,6 @@ else
     private async void LoadLoginCookies()
     {
         ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
-        ClientLoginService.Username = await cookie.GetValue( "logintoken" );
 
         if(ClientLoginService.IsLoggedIn)
             ClientLoginService.FetchUserInfo();
@@ -144,7 +143,6 @@ else
             await cookie.SetValue( "logintoken", loginToken );
 
             ClientLoginService.LoginToken = loginToken;
-            ClientLoginService.Username = loginToken;
             ClientLoginService.FetchUserInfo();
 
             await InvokeAsync(StateHasChanged);

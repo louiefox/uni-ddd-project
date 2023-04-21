@@ -19,27 +19,34 @@ namespace DDDProject.Data
 
             if(studentDocument != null && studentDocument.GetValue("password") == password)
             {
-                return Task.FromResult(username);
+                return Task.FromResult("token_" + username);
             }
             
             return Task.FromException<string>(new Exception("Invalid login information."));
         }
 
-        public Task<string> RequestUserInfo(string loginToken)
+        public Task<UserInfo> RequestUserInfo(string loginToken)
         {
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
             var database = dbClient.GetDatabase("DDDProject");
             var collection = database.GetCollection<BsonDocument>("Users");
 
-            var filter = Builders<BsonDocument>.Filter.Eq("username", loginToken);
+            string username = loginToken.Replace("token_", "");
+            var filter = Builders<BsonDocument>.Filter.Eq("username", username);
             var studentDocument = collection.Find(filter).FirstOrDefault();
 
             if(studentDocument != null)
             {
-                return Task.FromResult((string)studentDocument.GetValue("fullname"));
+                UserInfo user = new()
+                {
+                    Username = username,
+                    Fullname = (string)studentDocument.GetValue("fullname")
+                };
+
+                return Task.FromResult(user);
             }
             
-            return Task.FromException<string>(new Exception("Invalid login token."));
+            return Task.FromException<UserInfo>(new Exception("Invalid login token."));
         }
     }
 }
