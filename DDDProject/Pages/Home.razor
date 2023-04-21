@@ -27,24 +27,16 @@
                 </div>
                 <div class="events-section"> 
                     <h1>Upcoming Public Events</h1> 
-                    <div class="card">
-                        <div class="blank-event"/>
-                        <h1>Movie Night</h1>
-                        <h2>Anime Society</h2>
-                        <h3>21 Feb, 2023 Student Union</h3>
-                    </div>
-                    <div class="card">
-                        <div class="blank-event"/>
-                        <h1>Tryouts</h1>
-                        <h2>Basketball Society</h2>
-                        <h3>22 Feb, 2023 Sports Hall</h3>
-                    </div>
-                    <div class="card">
-                        <div class="blank-event"/>
-                        <h1>Trip to Gallery</h1>
-                        <h2>Art Society</h2>
-                        <h3>23 Feb, 2023 Ferens Art Gallery</h3>
-                    </div>
+
+                    @foreach (EventData eventData in latestEvents)
+                    {
+                        <div class="card">
+                            <div class="blank-event"/>
+                            <h1>@eventData.Name</h1>
+                            <h2>@eventData.SocietyName Society</h2>
+                            <h3>@eventData.DateLocation</h3>
+                        </div>
+                    }
                 </div>
             </div>
         }
@@ -53,12 +45,12 @@
             <div class="search-area">
                 @if (isSearchingEvents)
                 {
-                    @foreach (Event eventData in searchResultsEvents)
+                    @foreach (EventData eventData in searchResultsEvents)
                     {
                         <div class="search-event-card">
                             <div class="search-event-display"/>
                             <h1>@eventData.Name</h1>
-                            <h2>@eventData.Society</h2>
+                            <h2>@eventData.SocietyName Society</h2>
                             <h3>@eventData.DateLocation</h3>
                         </div>
                     }
@@ -90,34 +82,25 @@
 </div>
 
 @code {
-    struct Event
-    {
-        public string Name;
-        public string Society;
-        public string DateLocation;
-    }
-
     private bool isSearchingEvents = false;
     private bool isSearchingSocieties = false;
     private string searchEventsInput { get; set; } = "";
     private string searchSocietiesInput { get; set; } = "";
-    private List<Event> eventsList;
-    private List<Event> searchResultsEvents = new();
+    private List<EventData> eventsList;
+    private List<EventData> searchResultsEvents = new();
+    private List<EventData> latestEvents = new();
     private List<SocietyData> societiesList;
     private List<SocietyData> searchResultsSocieties = new();
 
     protected override async Task OnInitializedAsync()
     {
-        eventsList = new() {
-            new() { Name = "Movie Night", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
-            new() { Name = "Test", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
-            new() { Name = "Basketball", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
-            new() { Name = "Arts", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
-            new() { Name = "Cheese Eating", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" },
-            new() { Name = "Game Playing", Society = "Anime Society", DateLocation = "21 Feb, 2023 Student Union" }
-        };
-
         societiesList = await societyDataService.RequestSocietiesList();
+        eventsList = await societyDataService.RequestEventsList();
+
+        for(int i = 0; i < 3; i++)
+        {
+            latestEvents.Add(eventsList.ToArray()[i]);
+        }
     }
 
     private void refreshEventSearch(string input)
@@ -126,7 +109,7 @@
 
         searchResultsEvents.Clear();
 
-        foreach (Event eventData in eventsList)
+        foreach (EventData eventData in eventsList)
         {
             if(!eventData.Name.ToLower().Contains(searchEventsInput))
                 continue;

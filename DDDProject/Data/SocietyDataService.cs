@@ -28,5 +28,30 @@ namespace DDDProject.Data
 
             return Task.FromResult(societiesList);
         }
+
+        public Task<List<EventData>> RequestEventsList()
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var eventsCollection = database.GetCollection<BsonDocument>("Events");
+            var societiesCollection = database.GetCollection<BsonDocument>("Societies");
+
+            List<EventData> eventsList = new();
+            foreach(BsonDocument doc in eventsCollection.Find(new BsonDocument()).ToList())
+            {
+                string societyID = (string)doc.GetValue("societyID");
+                BsonDocument societyDocument = societiesCollection.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).FirstOrDefault();
+
+                eventsList.Add(new() {
+                    SocietyID = societyID,
+                    SocietyName = (string)societyDocument.GetValue("name"),
+                    Name = (string)doc.GetValue("name"),
+                    DateLocation = (string)doc.GetValue("dateLocation")
+                });
+            }
+
+            return Task.FromResult(eventsList);
+        }
     }
 }

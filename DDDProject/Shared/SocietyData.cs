@@ -10,4 +10,12 @@ namespace DDDProject.Data
         public string Name;
         public string Icon;
     }
+
+    public struct EventData
+    {
+        public string Name;
+        public string SocietyID;
+        public string SocietyName;
+        public string DateLocation;
+    }
 }
