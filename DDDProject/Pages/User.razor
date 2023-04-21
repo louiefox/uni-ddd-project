@@ -33,7 +33,7 @@
         </div>
     </div>
 }
-else
+else if(!editing)
 {
     <div class="profile-container">
         <div class="left-side">
@@ -41,20 +41,19 @@ else
                 <div class="profile-image"></div>
                 <div class="profile-text">
                     <h1>@ClientLoginService.Fullname @ClientLoginService.Username</h1>
-                    <h2>2nd Year Computer Science</h2>
+                    <h2>@Department</h2>
                     <div class ="sns_image">
                         <img src ="icon_instagram.png" width="35px" hight ="35px">
                         <img src ="icon_facebook.png" width="35px" hight ="35px">
                         <img src ="icon_discord.png" width="35px" hight ="35px">
                     </div>
                 </div>      
-                <button class="profile-edit" @onclick="LogoutButton" >Edit</button>               
+                <button class="profile-edit" @onclick= " () => editing = true" >Edit</button>               
             </div>
-            
 
             <h1>Bio:</h1>
             <div class="profile-bio">
-                I love socks!
+                @Bio
             </div>
         </div>
         <div class="right-side">
@@ -76,12 +75,47 @@ else
         </div>
     </div>
 }
+else
+{
+    <div class="profile-container">
+        <div class="left-side">
+            <div class="profile-info">
+                <div class="profile-image"></div>
+                <div class="profile-text">
+                    <h1>@ClientLoginService.Fullname @ClientLoginService.Username</h1>
+                    <input type="text" @bind="@Department" />               
+                </div>      
+                <button class="profile-edit" @onclick= " () => {editing = true; DepartmentBackup = Department; BioBackup = Bio;}" >Edit</button>               
+            </div>
+
+            <h1>Bio:</h1>
+            <div class="profile-bio">
+                <textarea @bind="@Bio"></textarea>
+            </div>
+
+            <div class = edit-buttons>
+                <button class="profile-save" @onclick="() => editing = false">Save</button>
+                <button class="profile-cancel" @onclick="() => {editing = false; Department = DepartmentBackup; Bio = BioBackup;}">Cancel</button>
+            </div>
+        
+        </div>
+        <div class="right-side"> </div>
+    </div>
+}
 
 @code {
     private string usernameInput { get; set; }
     private string passwordInput { get; set; }
 
     private string errorMessage = "";
+
+    private string Department = "2nd Year Computer Science";
+    private string Bio =  " I love socks!";
+
+    private string DepartmentBackup = "2nd Year Computer Science";
+    private string BioBackup =  "I love socks!";
+
+    private bool editing = false;
 
     private async void LoadLoginCookies()
     {
@@ -125,4 +159,6 @@ else
         await cookie.SetValue( "logintoken", "" );
         await InvokeAsync(StateHasChanged);
     }
+
 }
+
