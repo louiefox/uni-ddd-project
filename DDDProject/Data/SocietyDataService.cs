@@ -158,5 +158,29 @@ namespace DDDProject.Data
 
             return Task.FromResult(announcementsList);
         }
+
+        public Task<List<MemberData>> RequestSocietyMembers(string societyID)
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var membersCollection = database.GetCollection<BsonDocument>("SocietyMembers");
+            var usersCollection = database.GetCollection<BsonDocument>("Users");
+
+            List<MemberData> membersList = new();
+            foreach(BsonDocument doc in membersCollection.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).ToList())
+            {
+                string username = (string)doc.GetValue("username");
+                BsonDocument userDocument = usersCollection.Find(Builders<BsonDocument>.Filter.Eq("username", username)).FirstOrDefault();
+
+                membersList.Add(new() {
+                    Username = username,
+                    Fullname = (string)userDocument.GetValue("fullname"),
+                    IsAdministrator = false
+                });
+            }
+
+            return Task.FromResult(membersList);
+        }
     }
 }

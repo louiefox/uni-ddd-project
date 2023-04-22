@@ -41,13 +41,13 @@
             </a>
             <h1>Members:</h1>
             <div class="members-list">
-                <span class="member-row">
-                    <h3>Alex</h3>
-                    <h4>Admin</h4>
-                </span>
-                <span class="member-row"><h3>Joe</h3></span>
-                <span class="member-row"><h3>Kevin</h3></span>
-                <span class="member-row"><h3>Tia</h3></span>
+                @foreach (MemberData member in societyMembersList)
+                {
+                    <span class="member-row">
+                        <h3>@member.Fullname (@member.Username)</h3>
+                        @if (member.IsAdministrator) { <h4>Admin</h4> }
+                    </span>
+                }
             </div>
             <div class="leave-button" @onclick="LeaveSociety">
                 Leave Society :(
@@ -73,13 +73,13 @@
         <div class="right-side">
             <h1>Members:</h1>
             <div class="members-list">
-                <span class="member-row">
-                    <h3>Alex</h3>
-                    <h4>Admin</h4>
-                </span>
-                <span class="member-row"><h3>Joe</h3></span>
-                <span class="member-row"><h3>Kevin</h3></span>
-                <span class="member-row"><h3>Tia</h3></span>
+                @foreach (MemberData member in societyMembersList)
+                {
+                    <span class="member-row">
+                        <h3>@member.Fullname (@member.Username)</h3>
+                        @if (member.IsAdministrator) { <h4>Admin</h4> }
+                    </span>
+                }
             </div>
         </div>
     }
@@ -90,12 +90,14 @@
     public string societyID{ get; set; }
 
     private SocietyData society;
-    private List<EventData> societyEventsList;
-    private List<AnnouncementData> societyAnnouncements;
+    private List<MemberData> societyMembersList = new();
+    private List<EventData> societyEventsList = new();
+    private List<AnnouncementData> societyAnnouncements = new();
 
     protected override async Task OnInitializedAsync()
     {
         society = await societyDataService.RequestSocietyData(ClientLoginService.LoginToken, societyID);
+        societyMembersList = await societyDataService.RequestSocietyMembers(societyID);
 
         if(society.IsMemberOf)
         {

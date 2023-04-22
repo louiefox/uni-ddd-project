@@ -26,4 +26,11 @@ namespace DDDProject.Data
         public string Date;
         public string Content;
     }
+
+    public struct MemberData
+    {
+        public string Username;
+        public string Fullname;
+        public bool IsAdministrator;
+    }
 }
