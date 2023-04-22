@@ -9,28 +9,29 @@
 {
     <div class="container">
         <div class="form">
-            <div class="login_form_email">
-                <label>Student ID</label><br/>
+            <div class="login-form-field">
+                <h1>Student ID</h1>
                 <input type ="text" @bind="@usernameInput" @oninput="@((e) => usernameInput=(string)e.Value)">       
             </div>
 
-            <div class ="login_form_password">
-                <label>Password</label><br/>
+            <div class="login-form-field">
+                <h1>Password</h1>
                 <input type="password" @bind="@passwordInput" @oninput="@((e) => passwordInput=(string)e.Value)">
             </div>
 
-            <div class = "login_form_buttom">
-                <button class="btn_signin" @onclick="LoginButton">Sign in</button>
-                <h1>or</h1>
-                <button class="btn_signup">Sign up</button>
-            </div>
+            <button class="login-button" @onclick="LoginButton">Sign in</button>
+            <h1 class="login-button-spacer">Or</h1>
+            <button class="login-button login-button-signup" @onclick="@(() => CreateErrorMessage("Sign ups are disabled"))">Sign up</button>
 
-            <h2>@errorMessage</h2>
-
-            <div class="login_image">
-                <img src="login_page_art.png" width="844" height="526">
-            </div>
+            @if (errorMessage != "")
+            {
+                <div class="login-error-message">
+                    ERROR: @errorMessage
+                </div>
+            }
         </div>
+
+        <img class="login-image" src="login_page_art.png">
     </div>
 }
 else if(!editing)
@@ -129,6 +130,16 @@ else
         return base.OnAfterRenderAsync(firstRender);
     }
 
+    private async Task CreateErrorMessage(string message)
+    {
+        errorMessage = message;
+
+        await Task.Delay(3000);
+
+        errorMessage = "";
+        await InvokeAsync(StateHasChanged);
+    }
+
     private async void LoginButton()
     {
         try
@@ -145,7 +156,7 @@ else
         }
         catch(Exception e)
         {
-            errorMessage = e.Message;
+            CreateErrorMessage(e.Message);
         }
     }
 
@@ -178,7 +189,7 @@ else
         }
         catch(Exception e)
         {
-            errorMessage = e.Message;
+            CreateErrorMessage(e.Message);
         }
     }
 }
