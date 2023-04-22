@@ -27,10 +27,11 @@
             </div>
             <div class="announcements-list">
                 <h1>Announcements</h1>
-                <h3>The hoodies are ready! Come to the next meeting to collect yours</h3>
-                <p>19 Feb, 2023</p>
-                <h3>Come to the next meeting to decide on our next movie.</h3>
-                <p>11 Feb, 2023</p>
+                @foreach (AnnouncementData announcement in societyAnnouncements)
+                {
+                    <h3>@announcement.Content</h3>
+                    <p>@announcement.Date</p>
+                }
             </div>
         </div>
 
@@ -90,6 +91,7 @@
 
     private SocietyData society;
     private List<EventData> societyEventsList;
+    private List<AnnouncementData> societyAnnouncements;
 
     protected override async Task OnInitializedAsync()
     {
@@ -98,6 +100,7 @@
         if(society.IsMemberOf)
         {
             societyEventsList = await societyDataService.RequestSocietyEventsList(societyID);
+            societyAnnouncements = await societyDataService.RequestSocietyAnnouncements(societyID);
         }
     }
 

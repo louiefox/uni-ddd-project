@@ -20,4 +20,10 @@ namespace DDDProject.Data
         public string SocietyName;
         public string DateLocation;
     }
+
+    public struct AnnouncementData
+    {
+        public string Date;
+        public string Content;
+    }
 }
