@@ -120,5 +120,24 @@ namespace DDDProject.Data
 
             return Task.FromResult(FetchSocietyData(loginToken, societyID));
         }
+
+        public Task<List<EventData>> RequestSocietyEventsList(string societyID)
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var eventsCollection = database.GetCollection<BsonDocument>("Events");
+
+            List<EventData> eventsList = new();
+            foreach(BsonDocument doc in eventsCollection.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).ToList())
+            {
+                eventsList.Add(new() {
+                    Name = (string)doc.GetValue("name"),
+                    DateLocation = (string)doc.GetValue("dateLocation")
+                });
+            }
+
+            return Task.FromResult(eventsList);
+        }
     }
 }

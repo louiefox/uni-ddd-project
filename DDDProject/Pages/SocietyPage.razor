@@ -13,8 +13,15 @@
                 <h2>Upcoming Events</h2>
 
                 <div class="events-row">
-                    <div class="blank-event"/>
-                    <div class="blank-event"/>
+                    @foreach (EventData eventData in societyEventsList)
+                    {
+                        <div class="card">
+                            <div class="blank-event"/>
+                            <h1>@eventData.Name</h1>
+                            <h2>@society.Name Society</h2>
+                            <h3>@eventData.DateLocation</h3>
+                        </div>
+                    }
                 </div>
 
             </div>
@@ -82,10 +89,16 @@
     public string societyID{ get; set; }
 
     private SocietyData society;
+    private List<EventData> societyEventsList;
 
     protected override async Task OnInitializedAsync()
     {
         society = await societyDataService.RequestSocietyData(ClientLoginService.LoginToken, societyID);
+
+        if(society.IsMemberOf)
+        {
+            societyEventsList = await societyDataService.RequestSocietyEventsList(societyID);
+        }
     }
 
     private async void JoinSociety()
