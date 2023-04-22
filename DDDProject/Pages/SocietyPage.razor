@@ -41,9 +41,9 @@
                 <span class="member-row"><h3>Kevin</h3></span>
                 <span class="member-row"><h3>Tia</h3></span>
             </div>
-            <button class="leave-button">
+            <div class="leave-button" @onclick="LeaveSociety">
                 Leave Society :(
-            </button>
+            </div>
         </div>
     }
     else
@@ -91,5 +91,10 @@
     private async void JoinSociety()
     {
         society = await societyDataService.RequestJoinSociety(ClientLoginService.LoginToken, societyID);
+    }
+
+    private async void LeaveSociety()
+    {
+        society = await societyDataService.RequestLeaveSociety(ClientLoginService.LoginToken, societyID);
     }
 }

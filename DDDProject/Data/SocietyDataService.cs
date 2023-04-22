@@ -102,5 +102,23 @@ namespace DDDProject.Data
 
             return Task.FromResult(FetchSocietyData(loginToken, societyID));
         }
+
+        public Task<SocietyData> RequestLeaveSociety(string loginToken, string societyID)
+        {
+            string username = loginToken.Replace("token_", "");
+            if( username == "" )
+                return Task.FromException<SocietyData>(new Exception("Invalid login token."));
+
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var collectionMembers = database.GetCollection<BsonDocument>("SocietyMembers");
+
+            var filterUsername = Builders<BsonDocument>.Filter.Eq("username", username);
+            var filterSociety = Builders<BsonDocument>.Filter.Eq("societyID", societyID);
+            collectionMembers.DeleteOne(Builders<BsonDocument>.Filter.And(filterUsername, filterSociety));
+
+            return Task.FromResult(FetchSocietyData(loginToken, societyID));
+        }
     }
 }
