@@ -55,7 +55,7 @@ namespace DDDProject.Data
             return Task.FromResult(eventsList);
         }
 
-        public Task<SocietyData> RequestSocietyData(string loginToken, string societyID)
+        public SocietyData FetchSocietyData(string loginToken, string societyID)
         {
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
             var database = dbClient.GetDatabase("DDDProject");
@@ -78,7 +78,29 @@ namespace DDDProject.Data
             var count = collectionMembers.Find<BsonDocument>(Builders<BsonDocument>.Filter.And(filterUsername, filterSociety)).Limit(1).CountDocuments();
             societyData.IsMemberOf = count == 1;
 
-            return Task.FromResult(societyData);
+            return societyData;
+        }
+
+        public Task<SocietyData> RequestSocietyData(string loginToken, string societyID)
+        {
+            return Task.FromResult(FetchSocietyData(loginToken, societyID));
+        }
+
+        public Task<SocietyData> RequestJoinSociety(string loginToken, string societyID)
+        {
+            string username = loginToken.Replace("token_", "");
+            if( username == "" )
+                return Task.FromException<SocietyData>(new Exception("Invalid login token."));
+
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var collectionMembers = database.GetCollection<BsonDocument>("SocietyMembers");
+
+            var document = new BsonDocument { { "username", username }, { "societyID", societyID } };
+            collectionMembers.InsertOne(document);
+
+            return Task.FromResult(FetchSocietyData(loginToken, societyID));
         }
     }
 }

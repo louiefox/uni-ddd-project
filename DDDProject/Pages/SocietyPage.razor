@@ -90,6 +90,6 @@
 
     private async void JoinSociety()
     {
-
+        society = await societyDataService.RequestJoinSociety(ClientLoginService.LoginToken, societyID);
     }
 }
