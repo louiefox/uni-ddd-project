@@ -55,7 +55,7 @@ namespace DDDProject.Data
             return Task.FromResult(eventsList);
         }
 
-        public Task<SocietyData> RequestSocietyData(string societyID)
+        public Task<SocietyData> RequestSocietyData(string loginToken, string societyID)
         {
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
             var database = dbClient.GetDatabase("DDDProject");
@@ -70,6 +70,13 @@ namespace DDDProject.Data
                 Name = (string)doc.GetValue("name"),
                 Icon = (string)doc.GetValue("icon")
             };
+
+            var collectionMembers = database.GetCollection<BsonDocument>("SocietyMembers");
+            var filterUsername = Builders<BsonDocument>.Filter.Eq("username", loginToken.Replace("token_", ""));
+            var filterSociety = Builders<BsonDocument>.Filter.Eq("societyID", societyID);
+
+            var count = collectionMembers.Find<BsonDocument>(Builders<BsonDocument>.Filter.And(filterUsername, filterSociety)).Limit(1).CountDocuments();
+            societyData.IsMemberOf = count == 1;
 
             return Task.FromResult(societyData);
         }

@@ -110,3 +110,67 @@ h1 {
     font-size: 1.8rem;
     border-radius: 999px;
 }
+
+/* Non-Member Styling */
+.left-side{
+    position: relative;
+    width: 65%;
+    margin-bottom: 10rem;
+}
+
+.society-header {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-society {
+    position: absolute;
+    left: 1rem;
+    background-color: #33673B;
+    border-radius: 999px;
+    aspect-ratio: 1;
+    color: #AECFC1;
+    padding: 4rem;
+    font-size: 9rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.society-header > h1 {
+    margin: 0;
+    margin-left: 20rem;
+    font-size: 6rem;
+    color: #002500;
+}
+
+.society-info {
+    padding: 6rem;
+    padding-top: 10rem;
+}
+
+.society-info > h3 {
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.society-join {
+    position: absolute;
+    bottom: -5rem;
+    right: 10rem;
+    background-color: #FF9F43;
+    color: #33673B;
+    font-weight: 500;
+    font-size: 8rem;
+    padding: 1rem 10rem;
+    border-radius: 3rem;
+    transition: 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.society-join:hover {
+    background-color: #d78537;
+}

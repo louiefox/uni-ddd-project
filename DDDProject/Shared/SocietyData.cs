@@ -10,6 +10,7 @@ namespace DDDProject.Data
         public string SocietyID;
         public string Name;
         public string Icon;
+        public bool IsMemberOf;
     }
 
     public struct EventData
