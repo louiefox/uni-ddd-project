@@ -1,8 +1,11 @@
-﻿@page "/society/gaming"
+﻿@using DDDProject.Data;
+@inject SocietyDataService societyDataService
+
+@page "/society/{societyID}"
 
 <div class="container">
     <div class="left-side">
-        <h1>Gaming Society</h1>
+        <h1>@society.Name Society</h1>
         <div class="society-info">
             <h3>A society where...</h3>
             <h2>Upcoming Events</h2>
@@ -16,9 +19,9 @@
         <div class="announcements-list">
             <h1>Announcements</h1>
             <h3>The hoodies are ready! Come to the next meeting to collect yours</h3>
-            <p>Date</p>
+            <p>19 Feb, 2023</p>
             <h3>Come to the next meeting to decide on our next movie.</h3>
-            <p>Date</p>
+            <p>11 Feb, 2023</p>
         </div>
     </div>
 
@@ -41,3 +44,15 @@
         </button>
     </div>
 </div>
+
+@code {
+    [Parameter]
+    public string societyID{ get; set; }
+
+    private SocietyData society;
+
+    protected override async Task OnInitializedAsync()
+    {
+        society = await societyDataService.RequestSocietyData(societyID);
+    }
+}
