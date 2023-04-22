@@ -1,0 +1,15 @@
+name: Build and Deploy to VM
+
+# Run workflow on every push to the master branch
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy-to-github-pages:
+    runs-on: self-hosted
+    
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copy to host directory
+      run: powershell Copy-Item -Path C:\actions-runner\_work\uni-ddd-project\* -Destination C:\inetpub\wwwroot -force
