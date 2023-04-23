@@ -24,4 +24,4 @@ jobs:
       run: dotnet publish DDDProject/DDDProject.csproj -c Release -o release
     # runs the published project
     - name: Run .NET project
-      run: nohup release/DDDProject.exe > logfile.txt 2>&1 &
+      run: nohup release/DDDProject.exe > logfile.txt 2>&1 &amp;
