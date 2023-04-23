@@ -7,18 +7,22 @@
     @if (society.IsMemberOf)
     {
         <div class="left-side">
-            <h1>@society.Name Society</h1>
+            <div class="society-header">
+                <div class="profile-society">
+                    <span class="oi oi-@society.Icon" aria-hidden="true"></span>
+                </div>
+                <h1>@society.Name Society</h1>
+            </div>
             <div class="society-info">
                 <h3>A society where...</h3>
-                <h2>Upcoming Events</h2>
+                <h1>Upcoming Events</h1>
 
                 <div class="events-row">
                     @foreach (EventData eventData in societyEventsList)
                     {
                         <div class="card">
                             <div class="blank-event"/>
-                            <h1>@eventData.Name</h1>
-                            <h2>@society.Name Society</h2>
+                            <h2>@eventData.Name</h2>
                             <h3>@eventData.DateLocation</h3>
                         </div>
                     }

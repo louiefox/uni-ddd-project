@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject ICookie cookie
 
 <div class="page">
     <div class="top-bar">
@@ -12,3 +13,25 @@
     <div class="footer">
     </div>   
 </div>
+
+@code {
+    private async void LoadLoginCookies()
+    {
+        ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
+
+        if(ClientLoginService.IsLoggedIn)
+        {
+            await ClientLoginService.FetchUserInfo();
+        }
+        
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+            LoadLoginCookies();
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+}
