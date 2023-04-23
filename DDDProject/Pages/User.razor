@@ -4,6 +4,7 @@
 
 @using DDDProject.Data
 @inject LoginService loginService
+@inject SocietyDataService societyDataService
 
 @if (!ClientLoginService.IsLoggedIn)
 {
@@ -58,18 +59,12 @@ else if(!editing)
             </div>
         </div>
         <div class="right-side">
-            <div class="profile-society">
-                <span class="oi oi-play-circle" aria-hidden="true"></span>
-            </div>
-            <div class="profile-society">
-                <span class="oi oi-book" aria-hidden="true"></span>
-            </div>
-            <div class="profile-society">
-                <span class="oi oi-musical-note" aria-hidden="true"></span>
-            </div>
-            <div class="profile-society">
-                <span class="oi oi-flash" aria-hidden="true"></span>
-            </div> 
+            @foreach (SocietyData society in mySocietiesDisplayList)
+            {
+                <a class="profile-society" href="/society/@society.SocietyID">
+                    <span class="oi oi-@society.Icon" aria-hidden="true"></span>
+                </a>
+            } 
             <div class = "logout-conner">           
                 <button class="profile-sign-out" @onclick="LogoutButton">Sign out</button> 
             </div>
@@ -112,12 +107,22 @@ else
     private string bioEdit =  "Loading";
     private bool editing = false;
 
+    private List<SocietyData> mySocietiesDisplayList = new();
+
     private async void LoadLoginCookies()
     {
         ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
 
         if(ClientLoginService.IsLoggedIn)
+        {
             await ClientLoginService.FetchUserInfo();
+
+            List<SocietyData> mySocietiesList = await societyDataService.RequestMySocieties(ClientLoginService.LoginToken);
+            for(int i = 0; i < Math.Min(mySocietiesList.Count, 4); i++)
+            {   
+                mySocietiesDisplayList.Add(mySocietiesList.ToArray()[i]);
+            }
+        }
         
         await InvokeAsync(StateHasChanged);
     }

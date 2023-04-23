@@ -46,11 +46,13 @@
 
     protected override async Task OnInitializedAsync()
     {
-        mySocietiesList = await societyDataService.RequestSocietiesList();
+        if(!ClientLoginService.IsLoggedIn) return;
+
+        mySocietiesList = await societyDataService.RequestMySocieties(ClientLoginService.LoginToken);
         myEventsList = await societyDataService.RequestEventsList();
 
-        for(int i = 0; i < 3; i++)
-        {
+        for(int i = 0; i < Math.Min(myEventsList.Count, 3); i++)
+        {   
             myEventsDisplayList.Add(myEventsList.ToArray()[i]);
         }
     }

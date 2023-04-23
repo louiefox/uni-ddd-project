@@ -121,6 +121,34 @@ namespace DDDProject.Data
             return Task.FromResult(FetchSocietyData(loginToken, societyID));
         }
 
+        public Task<List<SocietyData>> RequestMySocieties(string loginToken)
+        {
+            string username = loginToken.Replace("token_", "");
+            if( username == "" )
+                return Task.FromException<List<SocietyData>>(new Exception("Invalid login token."));
+
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var collectionMembers = database.GetCollection<BsonDocument>("SocietyMembers");
+            var collectionSocieties = database.GetCollection<BsonDocument>("Societies");
+
+            List<SocietyData> societiesList = new();
+            foreach(BsonDocument doc in collectionMembers.Find(Builders<BsonDocument>.Filter.Eq("username", username)).ToList())
+            {
+                string societyID = (string)doc.GetValue("societyID");
+                BsonDocument societyDocument = collectionSocieties.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).FirstOrDefault();
+
+                societiesList.Add(new() {
+                    SocietyID = societyID,
+                    Name = (string)societyDocument.GetValue("name"),
+                    Icon = (string)societyDocument.GetValue("icon")
+                });
+            }
+
+            return Task.FromResult(societiesList);
+        }
+
         public Task<List<EventData>> RequestSocietyEventsList(string societyID)
         {
             MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
