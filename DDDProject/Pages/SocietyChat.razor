@@ -2,6 +2,9 @@
 @inject NavigationManager navigationManager
 @using Microsoft.AspNetCore.SignalR.Client;
 
+@using DDDProject.Data;
+@inject SocietyDataService societyDataService
+
 <div class="container">
     <div class="left-side">
         <a class="return-button" href="/society/@societyID">
@@ -10,10 +13,11 @@
         </a>
         <div class="announcements">
             <h1>Announcements</h1>
-            <h2>The hoodies are ready! Come to the next meeting to collect yours</h2>
-            <h3>19 Feb, 2023</h3>
-            <h2>Come to the next meeting to decide on our next movie.</h2>
-            <h3>11 Feb, 2023</h3>
+            @foreach (AnnouncementData announcement in societyAnnouncements)
+            {
+                <h2>@announcement.Content</h2>
+                <h3>@announcement.Date</h3>
+            }
         </div>
     </div>
 
@@ -60,15 +64,13 @@
 @code {
     [Parameter]
     public string societyID { get; set; }
+    private List<AnnouncementData> societyAnnouncements = new();
 
     // flag to indicate chat status
     private bool _isChatting = false;
 
     // name of the user who will be chatting
-    private string _username = "Placeholder";
-
-    // on-screen message
-    private string _message;
+    private string _username = "Loading";
 
     // new message input
     private string _newMessage;
@@ -81,12 +83,8 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // check username is valid
-        if (string.IsNullOrWhiteSpace(_username))
-        {
-            _message = "Please enter a name";
-            return;
-        };
+        societyAnnouncements = await societyDataService.RequestSocietyAnnouncements(societyID);
+        _username = ClientLoginService.Fullname;
 
         try
         {
@@ -115,17 +113,14 @@
         }
         catch (Exception e)
         {
-            _message = $"ERROR: Failed to start chat client: {e.Message}";
+            Console.WriteLine($"ERROR: Failed to start chat client: {e.Message}");
             _isChatting = false;
         }
     }
 
     private void OnClientConnected(string username)
     {
-        _username = username;
-        InvokeAsync(StateHasChanged);
-        // Debug message
-        // SendAsync("This is a test message.");
+        _username = ClientLoginService.Fullname + " (" + username + ")";
     }
 
     private void UserConnected(string username)
