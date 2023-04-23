@@ -126,6 +126,25 @@ h1 {
     background-color: #397241;
 }
 
+/* Manager Styling */
+.event-add-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #33673B;
+    height: 10rem;
+    color: #AECFC1;
+    font-size: 4rem;
+    padding: 0 3rem;
+    transition: 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.event-add-button:hover {
+    background-color: #358540;
+}
+
 /* Non-Member Styling */
 .left-side{
     position: relative;

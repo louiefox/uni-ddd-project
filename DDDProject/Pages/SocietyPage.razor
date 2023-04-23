@@ -1,6 +1,8 @@
 ﻿@using DDDProject.Data;
 @inject SocietyDataService societyDataService
 
+@inject IJSRuntime JsRuntime
+
 @page "/society/{societyID}"
 
 <div class="container">
@@ -24,6 +26,13 @@
                             <div class="blank-event"/>
                             <h2>@eventData.Name</h2>
                             <h3>@eventData.DateLocation</h3>
+                        </div>
+                    }
+
+                    @if (society.IsAdministrator)
+                    {
+                        <div class="event-add-button" @onclick="AdminCreateEvent">
+                            <span class="oi oi-plus" aria-hidden="true"></span>
                         </div>
                     }
                 </div>
@@ -118,5 +127,14 @@
     private async void LeaveSociety()
     {
         society = await societyDataService.RequestLeaveSociety(ClientLoginService.LoginToken, societyID);
+    }
+
+    private async void AdminCreateEvent()
+    {
+        string eventName = await JsRuntime.InvokeAsync<string>("prompt", "What is the name of the event?");
+        string eventDateLocation = await JsRuntime.InvokeAsync<string>("prompt", "When/where is the event?");
+
+        societyEventsList = await societyDataService.RequestSocietyCreateEvent(societyID, eventName, eventDateLocation);
+        await InvokeAsync(StateHasChanged);
     }
 }

@@ -62,21 +62,26 @@ namespace DDDProject.Data
             var collection = database.GetCollection<BsonDocument>("Societies");
 
             var filter = Builders<BsonDocument>.Filter.Eq("societyID", societyID);
-            var doc = collection.Find(filter).FirstOrDefault();
+            var societyDoc = collection.Find(filter).FirstOrDefault();
 
             SocietyData societyData = new()
             {
                 SocietyID = societyID,
-                Name = (string)doc.GetValue("name"),
-                Icon = (string)doc.GetValue("icon")
+                Name = (string)societyDoc.GetValue("name"),
+                Icon = (string)societyDoc.GetValue("icon")
             };
 
+            string username = loginToken.Replace("token_", "");
+
             var collectionMembers = database.GetCollection<BsonDocument>("SocietyMembers");
-            var filterUsername = Builders<BsonDocument>.Filter.Eq("username", loginToken.Replace("token_", ""));
+            var filterUsername = Builders<BsonDocument>.Filter.Eq("username", username);
             var filterSociety = Builders<BsonDocument>.Filter.Eq("societyID", societyID);
 
             var count = collectionMembers.Find<BsonDocument>(Builders<BsonDocument>.Filter.And(filterUsername, filterSociety)).Limit(1).CountDocuments();
             societyData.IsMemberOf = count == 1;
+
+            BsonArray admins = (BsonArray)societyDoc.GetValue("admins");
+            societyData.IsAdministrator = admins.Contains(username);
 
             return societyData;
         }
@@ -209,6 +214,28 @@ namespace DDDProject.Data
             }
 
             return Task.FromResult(membersList);
+        }
+
+        public Task<List<EventData>> RequestSocietyCreateEvent(string societyID, string eventName, string eventDateLocation)
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var eventsCollection = database.GetCollection<BsonDocument>("Events");
+
+            var document = new BsonDocument { { "societyID", societyID }, { "name", eventName }, { "dateLocation", eventDateLocation } };
+            eventsCollection.InsertOne(document);
+
+            List<EventData> eventsList = new();
+            foreach(BsonDocument doc in eventsCollection.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).ToList())
+            {
+                eventsList.Add(new() {
+                    Name = (string)doc.GetValue("name"),
+                    DateLocation = (string)doc.GetValue("dateLocation")
+                });
+            }
+
+            return Task.FromResult(eventsList);
         }
     }
 }

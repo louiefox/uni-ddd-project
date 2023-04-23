@@ -11,6 +11,7 @@ namespace DDDProject.Data
         public string Name;
         public string Icon;
         public bool IsMemberOf;
+        public bool IsAdministrator;
     }
 
     public struct EventData
