@@ -1,10 +1,10 @@
-﻿@page "/chat"
+﻿@page "/chat/{societyID}"
 @inject NavigationManager navigationManager
 @using Microsoft.AspNetCore.SignalR.Client;
 
 <div class="container">
     <div class="left-side">
-        <a class="return-button" href="/society/gaming">
+        <a class="return-button" href="/society/@societyID">
             <span class="oi oi-arrow-left" aria-hidden="true" style="margin-right: 0.25rem"></span>
             Back to Society Page
         </a>
@@ -58,6 +58,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public string societyID { get; set; }
+
     // flag to indicate chat status
     private bool _isChatting = false;
 
