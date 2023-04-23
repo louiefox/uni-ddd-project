@@ -24,4 +24,4 @@ jobs:
       run: dotnet publish DDDProject/DDDProject.csproj -c Release -o release
     # runs the published project
     - name: Run .NET project
-      run: dotnet run --project DDDProject/DDDProject.csproj \&
+      run: start dotnet run --project DDDProject/DDDProject.csproj
