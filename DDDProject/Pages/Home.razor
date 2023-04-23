@@ -59,7 +59,7 @@
                 {
                     @foreach (SocietyData society in searchResultsSocieties)
                     {
-                        <a class="society-card">
+                        <a class="society-card" href="/society/@society.SocietyID">
                             <span class="oi oi-@society.Icon" aria-hidden="true"></span>
                             <h2>@society.Name</h2>
                         </a>
@@ -152,8 +152,9 @@
         refreshSocietiesSearch("");
     }
 
-    private void clearSearching()
+    private async Task clearSearching()
     {
+        await Task.Delay(100);
         searchEventsInput = "";
         searchSocietiesInput = "";
         isSearchingEvents = false;
