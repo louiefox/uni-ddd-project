@@ -237,5 +237,27 @@ namespace DDDProject.Data
 
             return Task.FromResult(eventsList);
         }
+
+        public Task<List<AnnouncementData>> RequestSocietyCreateAnnouncement(string societyID, string content)
+        {
+            MongoClient dbClient = new MongoClient("mongodb+srv://admin:fDpFpTpiPwW4erIs@cluster0.ylyijxb.mongodb.net/?retryWrites=true&w=majority");
+            var database = dbClient.GetDatabase("DDDProject");
+
+            var announcementsCollection = database.GetCollection<BsonDocument>("Announcements");
+
+            var document = new BsonDocument { { "societyID", societyID }, { "date", DateTime.Now.ToString("dd MMM, yyyy") }, { "content", content } };
+            announcementsCollection.InsertOne(document);
+
+            List<AnnouncementData> announcementsList = new();
+            foreach(BsonDocument doc in announcementsCollection.Find(Builders<BsonDocument>.Filter.Eq("societyID", societyID)).ToList())
+            {
+                announcementsList.Add(new() {
+                    Date = (string)doc.GetValue("date"),
+                    Content = (string)doc.GetValue("content")
+                });
+            }
+
+            return Task.FromResult(announcementsList);
+        }
     }
 }

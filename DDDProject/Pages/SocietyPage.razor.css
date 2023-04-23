@@ -50,6 +50,7 @@ h1 {
 }
 
 .announcements-list {
+    position: relative;
     background-color: #FF9F43;
     padding: 3rem;
     margin-top: 2rem;
@@ -143,6 +144,22 @@ h1 {
 
 .event-add-button:hover {
     background-color: #358540;
+}
+
+.announcement-add-button {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    color: #002500;
+    font-size: 4rem;
+    padding: .5rem 1rem;
+    transition: 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.announcement-add-button:hover {
+    background-color: #ffffff30;
 }
 
 /* Non-Member Styling */

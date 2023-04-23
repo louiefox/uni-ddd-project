@@ -45,6 +45,13 @@
                     <h3>@announcement.Content</h3>
                     <p>@announcement.Date</p>
                 }
+
+                @if (society.IsAdministrator)
+                {
+                    <div class="announcement-add-button" @onclick="AdminCreateAnnouncement">
+                        <span class="oi oi-plus" aria-hidden="true"></span>
+                    </div>
+                }
             </div>
         </div>
 
@@ -132,9 +139,21 @@
     private async void AdminCreateEvent()
     {
         string eventName = await JsRuntime.InvokeAsync<string>("prompt", "What is the name of the event?");
+        if(eventName == null) return;
+
         string eventDateLocation = await JsRuntime.InvokeAsync<string>("prompt", "When/where is the event?");
+        if(eventDateLocation == null) return;
 
         societyEventsList = await societyDataService.RequestSocietyCreateEvent(societyID, eventName, eventDateLocation);
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async void AdminCreateAnnouncement()
+    {
+        string content = await JsRuntime.InvokeAsync<string>("prompt", "What would you like to announce??");
+        if(content == null) return;
+
+        societyAnnouncements = await societyDataService.RequestSocietyCreateAnnouncement(societyID, content);
         await InvokeAsync(StateHasChanged);
     }
 }
