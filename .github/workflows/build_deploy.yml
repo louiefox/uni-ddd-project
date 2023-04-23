@@ -24,4 +24,4 @@ jobs:
       run: dotnet publish DDDProject/DDDProject.csproj -c Release -o release
     # runs the published project
     - name: Run .NET project
-      run: Start-Process nohup powershell -ArgumentList "-NoExit", "-Command", "{ dotnet run --project DDDProject/DDDProject.csproj }" -Wait
+      run: Start-Process nohup "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -ArgumentList "-NoExit", "-Command", "dotnet run --project DDDProject/DDDProject.csproj"
