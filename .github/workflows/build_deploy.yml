@@ -25,5 +25,5 @@ jobs:
     # runs the published project
     - name: Run .NET project
       run: |
-          dotnet run DDDProject/DDDProject.csproj
+          dotnet run --project DDDProject/DDDProject.csproj
           exec bash
