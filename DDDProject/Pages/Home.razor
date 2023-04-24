@@ -122,6 +122,9 @@
                 continue;
 
             searchResultsEvents.Add(eventData);
+            
+            if(searchResultsEvents.Count >= 6)
+                break;
         }
     }
 
