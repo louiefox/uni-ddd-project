@@ -121,6 +121,26 @@ else
         }
     }
 
+    private async void LoadLoginCookies()
+    {
+        ClientLoginService.LoginToken = await cookie.GetValue( "logintoken" );
+
+        if(ClientLoginService.IsLoggedIn)
+        {
+            await ClientLoginService.FetchUserInfo();
+        }
+        
+        await InvokeAsync(StateHasChanged);
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+            LoadLoginCookies();
+
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
     private async Task CreateErrorMessage(string message)
     {
         errorMessage = message;
